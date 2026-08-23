@@ -365,6 +365,12 @@ const AUTH_USER = "ram";
 const AUTH_PASS = "ram123";
 /* The same pair must be set as AUTH_USER / AUTH_PASS in Code.gs */
 
+/* The Apps Script /exec URL. Baked in here so every device — this file on
+   your disk, the GitHub Pages copy, your phone — connects with no setup.
+   To change it later: replace the string below, or use the ⚙ dialog on a
+   single device (that overrides this value for that browser only). */
+const DEFAULT_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzUgb3QkoSeBHvsE-St0_SRcYD3QYbBWfxvFSQp3omngfdu4pswtXFlomv4iuaVEfIn/exec";
+
 const STORES = [
   {name:"Costco",         hue:212, icon:"🏬"},
   {name:"Walmart",        hue:196, icon:"🛒"},
@@ -402,7 +408,7 @@ const LS = {
 };
 
 const S = {
-  url: LS.get("gh.url",""),
+  url: LS.get("gh.url","") || DEFAULT_SCRIPT_URL,
   auth: LS.get("gh.auth",false),
   view: "list",
   groceries: LS.get("gh.cache.g",[]),

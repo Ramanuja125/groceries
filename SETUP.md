@@ -1,16 +1,15 @@
 # Ram's Grocery Hub — setup
 
-Three files:
-
 | File | What it is |
 |---|---|
-| `grocery-hub.html` | The website. Double-click it, or host it anywhere. |
+| `index.html` | The whole website. Double-click it, or push it to GitHub Pages. |
+| `.nojekyll` | Empty file. Tells GitHub Pages to serve files untouched. |
 | `Code.gs` | The Google Sheets backend. Goes into Apps Script. |
+| `README.md` | Short repo readme, for GitHub. |
 | `SETUP.md` | This page. |
 
-The site works **immediately** without the sheet — it just keeps data in your
-browser. Connect the sheet when you want it saved properly and synced across
-your phone and laptop.
+The Apps Script URL is already baked into `index.html`, so it connects on its
+own — nothing to paste.
 
 ---
 
@@ -26,7 +25,7 @@ add, edit, check off or delete.
 
 **To change the password**, edit the same two lines in *both* files:
 
-- `grocery-hub.html` → near the top of the `<script>`, under `1. CONFIG`
+- `index.html` → near the top of the `<script>`, under `1. CONFIG`
 - `Code.gs` → lines 2–3
 
 ```js
@@ -166,9 +165,71 @@ file means re-pasting the URL once. Nothing is lost — the data is in the sheet
 
 ---
 
-## Putting it on the web
+## Putting it on GitHub Pages
 
-Nothing here needs a server. Drop `grocery-hub.html` into any static host —
-GitHub Pages, Netlify drop, Cloudflare Pages — and it works the same, with the
-bonus that your phone can open it by URL. Remember the login is only a soft
-gate, so anyone with the link can view (and, if they read the source, edit).
+Nothing here needs a server or a build step.
+
+**What Pages requires:**
+
+1. The file must be named **`index.html`** and sit at the **root** of the branch
+   you publish from. It already is.
+2. Include the empty **`.nojekyll`** file next to it. Without it Pages runs
+   everything through Jekyll first, which is harmless here but can silently drop
+   files whose names start with `_` if you add any later.
+3. **Settings → Pages → Build and deployment** → Source: **Deploy from a
+   branch** → Branch: **main**, folder: **/ (root)** → Save.
+
+Give it a minute, then `https://<username>.github.io/<repo>/` serves the app.
+Because it's `index.html` at the root, the bare URL works — no filename on the
+end. (`Code.gs`, `README.md` and `SETUP.md` can sit in the repo too; Pages just
+ignores them.)
+
+Prefer a tidier root? Move `index.html` and `.nojekyll` into a `docs/` folder and
+choose **/docs** as the folder in step 3.
+
+### Does the same data show up locally and on Pages?
+
+Yes — and this is the part worth being clear about, because it's easy to assume
+otherwise. **Your items are not stored in the browser. They're rows in the Google
+Sheet.** The local file and the Pages site are two windows onto the same sheet.
+Add something from your laptop, refresh your phone, it's there.
+
+Both can reach the sheet:
+
+- **From Pages** — both ends are HTTPS and the web app answers with
+  `Access-Control-Allow-Origin: *`, so any origin may call it. Writes go out as
+  `text/plain`, which makes them "simple" requests and skips the CORS preflight
+  that Apps Script can't answer.
+- **From a local file** — opening `index.html` off your disk gives the page an
+  origin of `null`, which `*` still allows. Chrome, Edge and Firefox are all fine
+  with this.
+
+The only per-origin thing is the ⚙ setting, and since the URL is now baked into
+`DEFAULT_SCRIPT_URL` that no longer matters — every copy is pre-connected.
+
+**To change the script URL later**, edit that one line in `index.html`:
+
+```js
+const DEFAULT_SCRIPT_URL = "https://script.google.com/macros/s/.../exec";
+```
+
+Or use ⚙ on a single device — that overrides the baked-in value for that browser
+only, which is handy for testing a new deployment without touching the file.
+
+### Before you make the repo public
+
+Read this bit. A public repo means the page source is public, and the source now
+contains both the password and the write endpoint. Anyone who found the repo
+could sign in and edit your list.
+
+For a personal grocery list that's usually a shrug. If you'd rather it weren't
+the case:
+
+- Set `DEFAULT_SCRIPT_URL` back to `""` and paste the URL through ⚙ on each of
+  your own devices. The URL then lives only in your browsers, never in the repo,
+  and a stranger loading the page sees an empty list wired to nothing. Costs you
+  one paste per device.
+- Change `AUTH_PASS` to something you don't use anywhere else. It's stored in
+  plain text in the page — treat it as a doorstop, not a lock.
+- If a URL ever leaks: **Deploy → Manage deployments → Archive** kills it.
+  Deploy a new version, paste the new URL in, and the old one is dead.
