@@ -1,0 +1,1085 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ram's Grocery Hub</title>
+<style>
+:root{
+  --bg:#f6f5f1; --surface:#ffffff; --surface-2:#f0eee8; --surface-3:#e8e5dd;
+  --border:#e2dfd6; --border-strong:#cfcabd;
+  --text:#1d1b17; --dim:#6d6759; --faint:#98917f;
+  --accent:#3d7a4d; --accent-ink:#2b5a38; --accent-soft:#e4f0e7;
+  --amber:#a86a12; --amber-soft:#fbeed6;
+  --red:#ad3a2b; --red-soft:#fbe4e0;
+  --blue:#2f6390; --blue-soft:#e3eef7;
+  --shadow-sm:0 1px 2px rgba(30,25,15,.06);
+  --shadow:0 2px 4px rgba(30,25,15,.05), 0 12px 28px -16px rgba(30,25,15,.28);
+  --shadow-lg:0 8px 12px rgba(30,25,15,.06), 0 32px 64px -24px rgba(30,25,15,.4);
+  --r:12px; --r-sm:8px; --r-lg:18px;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme=light]){
+    --bg:#131311; --surface:#1c1c19; --surface-2:#242420; --surface-3:#2e2e29;
+    --border:#32322c; --border-strong:#45453d;
+    --text:#eceae4; --dim:#a09a8c; --faint:#736d60;
+    --accent:#69ad7c; --accent-ink:#8fc79f; --accent-soft:#1e2f23;
+    --amber:#d69f4e; --amber-soft:#33271438;
+    --red:#e0796a; --red-soft:#3a201c;
+    --blue:#78a9d4; --blue-soft:#1a2836;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+    --shadow:0 2px 4px rgba(0,0,0,.3), 0 12px 28px -16px rgba(0,0,0,.8);
+    --shadow-lg:0 8px 12px rgba(0,0,0,.3), 0 32px 64px -24px rgba(0,0,0,.9);
+  }
+}
+:root[data-theme=dark]{
+  --bg:#131311; --surface:#1c1c19; --surface-2:#242420; --surface-3:#2e2e29;
+  --border:#32322c; --border-strong:#45453d;
+  --text:#eceae4; --dim:#a09a8c; --faint:#736d60;
+  --accent:#69ad7c; --accent-ink:#8fc79f; --accent-soft:#1e2f23;
+  --amber:#d69f4e; --amber-soft:#332714;
+  --red:#e0796a; --red-soft:#3a201c;
+  --blue:#78a9d4; --blue-soft:#1a2836;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+  --shadow:0 2px 4px rgba(0,0,0,.3), 0 12px 28px -16px rgba(0,0,0,.8);
+  --shadow-lg:0 8px 12px rgba(0,0,0,.3), 0 32px 64px -24px rgba(0,0,0,.9);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg); color:var(--text); font-family:var(--sans);
+  font-size:15px; line-height:1.5; -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:none}
+a{color:var(--accent-ink)}
+
+/* ---------- layout ---------- */
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px 96px}
+@media (max-width:600px){ .wrap{padding:0 12px 96px} }
+
+/* ---------- topbar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
+.topbar-in{max-width:1080px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:12px}
+@media (max-width:600px){ .topbar-in{padding:10px 12px;gap:8px} }
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto;min-width:0}
+.mark{
+  width:34px;height:34px;border-radius:10px;flex:none;
+  background:linear-gradient(140deg,var(--accent),color-mix(in srgb,var(--accent) 55%,var(--blue)));
+  display:grid;place-items:center;font-size:17px;box-shadow:var(--shadow-sm);
+}
+.brand h1{font-size:16px;font-weight:650;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand .sub{font-size:11.5px;color:var(--faint);white-space:nowrap}
+@media (max-width:520px){ .brand .sub{display:none} }
+
+.iconbtn{
+  width:34px;height:34px;border-radius:9px;display:grid;place-items:center;flex:none;
+  border:1px solid var(--border);background:var(--surface);color:var(--dim);
+  transition:.15s;font-size:15px;
+}
+.iconbtn:hover{background:var(--surface-2);color:var(--text);border-color:var(--border-strong)}
+
+.btn{
+  display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:9px;
+  border:1px solid var(--border);background:var(--surface);font-size:13.5px;font-weight:550;
+  transition:.15s;white-space:nowrap;
+}
+.btn:hover{background:var(--surface-2);border-color:var(--border-strong)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{filter:brightness(1.07)}
+.btn.ghost{border-color:transparent;background:transparent;color:var(--dim)}
+.btn.ghost:hover{background:var(--surface-2);color:var(--text)}
+.btn.danger{color:var(--red);border-color:color-mix(in srgb,var(--red) 30%,var(--border))}
+.btn.danger:hover{background:var(--red-soft)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.sm{padding:5px 10px;font-size:12.5px;border-radius:7px}
+
+.syncpill{
+  display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:99px;
+  font-size:11.5px;font-weight:550;border:1px solid var(--border);background:var(--surface);color:var(--dim);
+}
+.syncpill .dot{width:6px;height:6px;border-radius:50%;background:var(--faint);flex:none}
+.syncpill[data-s=ok] .dot{background:var(--accent)}
+.syncpill[data-s=busy] .dot{background:var(--amber);animation:pulse 1s infinite}
+.syncpill[data-s=err] .dot{background:var(--red)}
+.syncpill[data-s=off] .dot{background:var(--faint)}
+@keyframes pulse{50%{opacity:.25}}
+@media (max-width:760px){ .syncpill .lbl{display:none} .syncpill{padding:6px} }
+
+/* ---------- tabs ---------- */
+.tabs{display:flex;gap:4px;padding:16px 0 0;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  padding:9px 15px;border-radius:10px;font-size:14px;font-weight:550;color:var(--dim);
+  display:inline-flex;align-items:center;gap:8px;white-space:nowrap;transition:.15s;
+}
+.tab:hover{background:var(--surface-2);color:var(--text)}
+.tab[aria-selected=true]{background:var(--surface);color:var(--text);box-shadow:var(--shadow-sm);border:1px solid var(--border)}
+.tab .count{
+  font-size:11px;font-weight:650;padding:1px 6px;border-radius:99px;
+  background:var(--surface-3);color:var(--dim);font-variant-numeric:tabular-nums;
+}
+.tab[aria-selected=true] .count{background:var(--accent-soft);color:var(--accent-ink)}
+
+/* ---------- stats ---------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0 0}
+@media (max-width:640px){ .stats{grid-template-columns:repeat(2,1fr)} }
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:13px 15px}
+.stat .k{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);font-weight:600}
+.stat .v{font-size:24px;font-weight:680;letter-spacing:-.02em;margin-top:3px;font-variant-numeric:tabular-nums}
+.stat .v small{font-size:13px;font-weight:500;color:var(--dim);letter-spacing:0}
+
+/* ---------- toolbar ---------- */
+.toolbar{
+  display:flex;gap:8px;align-items:center;margin:18px 0 0;flex-wrap:wrap;
+}
+.search{
+  flex:1 1 200px;min-width:160px;display:flex;align-items:center;gap:8px;
+  background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:0 12px;height:38px;
+}
+.search:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.search input{border:none;background:none;outline:none;flex:1;min-width:0;font-size:14px}
+.search .ic{color:var(--faint);font-size:13px}
+select.filt,input.fld,select.fld,textarea.fld{
+  height:38px;border:1px solid var(--border);background:var(--surface);border-radius:10px;
+  padding:0 10px;font-size:13.5px;outline:none;transition:.15s;max-width:100%;
+}
+textarea.fld{height:auto;padding:9px 10px;resize:vertical;min-height:64px;line-height:1.45}
+select.filt:focus,input.fld:focus,select.fld:focus,textarea.fld:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+select.filt{color:var(--dim);font-weight:550}
+select.filt[data-active=true]{color:var(--accent-ink);border-color:color-mix(in srgb,var(--accent) 40%,var(--border));background:var(--accent-soft)}
+
+/* ---------- add panel ---------- */
+.addpanel{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);
+  padding:16px;margin-top:14px;box-shadow:var(--shadow-sm);
+}
+.addgrid{display:grid;grid-template-columns:2fr 1.2fr .7fr .8fr auto;gap:8px}
+@media (max-width:820px){ .addgrid{grid-template-columns:1fr 1fr} }
+@media (max-width:520px){ .addgrid{grid-template-columns:1fr} }
+.addmore{display:none;grid-template-columns:1fr 1fr 2fr;gap:8px;margin-top:8px}
+.addmore.open{display:grid}
+@media (max-width:720px){ .addmore{grid-template-columns:1fr} }
+.lbl{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);font-weight:600;margin-bottom:4px;display:block}
+.f{display:flex;flex-direction:column;min-width:0}
+.f .fld,.f select{width:100%}
+.addfoot{display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}
+
+/* ---------- groups & rows ---------- */
+.group{margin-top:22px}
+.ghead{display:flex;align-items:center;gap:10px;margin-bottom:8px;padding:0 2px}
+.ghead .swatch{width:10px;height:10px;border-radius:3px;flex:none}
+.ghead .name{font-size:13.5px;font-weight:650;letter-spacing:-.01em}
+.ghead .n{font-size:11.5px;color:var(--faint);font-variant-numeric:tabular-nums}
+.ghead .line{flex:1;height:1px;background:var(--border)}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.row{
+  display:flex;align-items:flex-start;gap:12px;padding:12px 14px;
+  border-bottom:1px solid var(--border);transition:background .12s;
+}
+.row:last-child{border-bottom:none}
+.row:hover{background:var(--surface-2)}
+.row.done .main .nm{text-decoration:line-through;color:var(--faint)}
+.row.urgent{box-shadow:inset 3px 0 0 var(--red)}
+
+.chk{
+  width:20px;height:20px;border-radius:6px;border:1.5px solid var(--border-strong);flex:none;
+  display:grid;place-items:center;margin-top:1px;transition:.15s;color:transparent;font-size:11px;
+  background:var(--surface);
+}
+.chk:hover:not(:disabled){border-color:var(--accent)}
+.chk[aria-checked=true]{background:var(--accent);border-color:var(--accent);color:#fff}
+.chk:disabled{opacity:.5;cursor:default}
+
+.main{flex:1;min-width:0}
+.nm{font-size:14.5px;font-weight:550;letter-spacing:-.005em;word-break:break-word}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center}
+.chip{
+  display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:550;
+  padding:2.5px 8px;border-radius:99px;background:var(--surface-2);color:var(--dim);
+  border:1px solid var(--border);white-space:nowrap;
+}
+.chip.qty{font-family:var(--mono);font-size:11px;font-weight:600;background:var(--surface-3);color:var(--text)}
+.chip.p-urgent{background:var(--red-soft);color:var(--red);border-color:color-mix(in srgb,var(--red) 25%,transparent)}
+.chip.p-whenever{opacity:.75}
+.chip.store{font-weight:600}
+.note{font-size:12.5px;color:var(--dim);margin-top:6px;line-height:1.45;word-break:break-word}
+.rowacts{display:flex;gap:2px;flex:none;opacity:0;transition:.15s}
+.row:hover .rowacts,.row:focus-within .rowacts{opacity:1}
+@media (hover:none){ .rowacts{opacity:1} }
+.mini{
+  width:28px;height:28px;border-radius:7px;display:grid;place-items:center;color:var(--faint);font-size:13px;transition:.12s;
+}
+.mini:hover{background:var(--surface-3);color:var(--text)}
+.mini.del:hover{background:var(--red-soft);color:var(--red)}
+
+/* ---------- empty ---------- */
+.empty{
+  text-align:center;padding:56px 24px;color:var(--dim);
+  background:var(--surface);border:1px dashed var(--border-strong);border-radius:var(--r-lg);margin-top:18px;
+}
+.empty .big{font-size:32px;margin-bottom:10px;opacity:.6}
+.empty h3{font-size:15px;font-weight:600;color:var(--text);margin-bottom:5px}
+.empty p{font-size:13.5px;max-width:380px;margin:0 auto;line-height:1.55}
+
+/* ---------- modal ---------- */
+.scrim{
+  position:fixed;inset:0;background:rgba(20,18,14,.5);backdrop-filter:blur(3px);
+  display:none;place-items:center;padding:20px;z-index:100;
+}
+.scrim.open{display:grid}
+.modal{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-lg);width:100%;max-width:440px;padding:24px;
+  max-height:calc(100vh - 40px);overflow:auto;
+}
+.modal h2{font-size:17px;font-weight:650;letter-spacing:-.015em;margin-bottom:5px}
+.modal .desc{font-size:13px;color:var(--dim);line-height:1.5;margin-bottom:18px}
+.modal .f{margin-bottom:12px}
+.modal .foot{display:flex;gap:8px;justify-content:flex-end;margin-top:20px}
+.err{font-size:12.5px;color:var(--red);margin-top:8px;display:none}
+.err.show{display:block}
+.hint{font-size:11.5px;color:var(--faint);margin-top:5px;line-height:1.5}
+code{font-family:var(--mono);font-size:.9em;background:var(--surface-3);padding:1px 5px;border-radius:4px}
+
+/* ---------- toast ---------- */
+.toasts{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:200;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none;width:calc(100% - 32px);max-width:420px}
+.toast{
+  background:var(--text);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:13.5px;
+  font-weight:550;box-shadow:var(--shadow-lg);animation:pop .2s ease-out;max-width:100%;
+}
+.toast.bad{background:var(--red);color:#fff}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}}
+
+.readonly-banner{
+  display:flex;align-items:center;gap:10px;margin-top:16px;padding:10px 14px;
+  background:var(--blue-soft);border:1px solid color-mix(in srgb,var(--blue) 25%,transparent);
+  border-radius:var(--r);font-size:13px;color:var(--text);
+}
+.readonly-banner b{font-weight:650}
+.readonly-banner .btn{margin-left:auto}
+.hide{display:none !important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="brand">
+      <div class="mark">🛒</div>
+      <div>
+        <h1>Ram's Grocery Hub</h1>
+        <div class="sub" id="brandSub">Groceries &amp; to-dos, synced to Google Sheets</div>
+      </div>
+    </div>
+    <button class="syncpill" id="syncPill" data-s="off" title="Sync status — click to refresh">
+      <span class="dot"></span><span class="lbl" id="syncLbl">Not connected</span>
+    </button>
+    <button class="iconbtn" id="themeBtn" title="Toggle theme">◐</button>
+    <button class="iconbtn" id="cfgBtn" title="Settings">⚙</button>
+    <button class="btn" id="authBtn">Sign in</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" data-view="list" aria-selected="true">🛍️ Shopping list <span class="count" id="cList">0</span></button>
+    <button class="tab" role="tab" data-view="todo" aria-selected="false">✅ To-do <span class="count" id="cTodo">0</span></button>
+    <button class="tab" role="tab" data-view="history" aria-selected="false">📦 History <span class="count" id="cHist">0</span></button>
+  </div>
+
+  <div id="roBanner" class="readonly-banner hide">
+    <span>👀</span><span><b>View-only mode.</b> Sign in to add, edit or check off items.</span>
+    <button class="btn sm" id="roSignin">Sign in</button>
+  </div>
+
+  <div id="content"></div>
+</div>
+
+<!-- login modal -->
+<div class="scrim" id="loginScrim">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+    <h2 id="loginTitle">Sign in to edit</h2>
+    <p class="desc">Anyone can view the list. Signing in unlocks adding, editing and checking off items.</p>
+    <div class="f"><label class="lbl" for="luser">Username</label><input class="fld" id="luser" autocomplete="username" placeholder="ram"></div>
+    <div class="f"><label class="lbl" for="lpass">Password</label><input class="fld" id="lpass" type="password" autocomplete="current-password" placeholder="••••••••"></div>
+    <div class="err" id="loginErr">Wrong username or password.</div>
+    <div class="foot">
+      <button class="btn ghost" data-close>Cancel</button>
+      <button class="btn primary" id="loginGo">Sign in</button>
+    </div>
+  </div>
+</div>
+
+<!-- settings modal -->
+<div class="scrim" id="cfgScrim">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="cfgTitle">
+    <h2 id="cfgTitle">Google Sheets connection</h2>
+    <p class="desc">Paste the Apps Script web-app URL you deployed from your grocery spreadsheet. It ends in <code>/exec</code>.</p>
+    <div class="f">
+      <label class="lbl" for="cfgUrl">Web app URL</label>
+      <input class="fld" id="cfgUrl" placeholder="https://script.google.com/macros/s/AKfy.../exec" spellcheck="false">
+      <div class="hint">Stored only in this browser. See <code>SETUP.md</code> for the 5-minute setup.</div>
+    </div>
+    <div class="err" id="cfgErr"></div>
+    <div class="foot">
+      <button class="btn ghost" data-close>Cancel</button>
+      <button class="btn" id="cfgTest">Test</button>
+      <button class="btn primary" id="cfgSave">Save &amp; sync</button>
+    </div>
+  </div>
+</div>
+
+<!-- edit modal -->
+<div class="scrim" id="editScrim">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="editTitle">
+    <h2 id="editTitle">Edit item</h2>
+    <p class="desc" id="editDesc">Update the details and save.</p>
+    <div id="editBody"></div>
+    <div class="foot">
+      <button class="btn ghost" data-close>Cancel</button>
+      <button class="btn primary" id="editSave">Save changes</button>
+    </div>
+  </div>
+</div>
+
+<div class="toasts" id="toasts"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ============================================================
+   1. CONFIG — change these two lines to change the login
+   ============================================================ */
+const AUTH_USER = "ram";
+const AUTH_PASS = "ram123";
+/* The same pair must be set as AUTH_USER / AUTH_PASS in Code.gs */
+
+const STORES = [
+  {name:"Costco",         hue:212, icon:"🏬"},
+  {name:"Walmart",        hue:196, icon:"🛒"},
+  {name:"Indian Store",   hue:30,  icon:"🪔"},
+  {name:"Patel Brothers", hue:6,   icon:"🌶️"},
+  {name:"Safeway",        hue:150, icon:"🥬"},
+  {name:"Daiso",          hue:334, icon:"🧧"},
+  {name:"H Mart",         hue:268, icon:"🥢"},
+  {name:"Other",          hue:44,  icon:"📍"}
+];
+const CATS = [
+  {name:"Produce",         icon:"🥦"},
+  {name:"Dairy & Eggs",    icon:"🥛"},
+  {name:"Meat & Seafood",  icon:"🍗"},
+  {name:"Frozen",          icon:"🧊"},
+  {name:"Pantry & Dry",    icon:"🍚"},
+  {name:"Spices & Masala", icon:"🌿"},
+  {name:"Snacks",          icon:"🍪"},
+  {name:"Beverages",       icon:"🧃"},
+  {name:"Bakery",          icon:"🍞"},
+  {name:"Household",       icon:"🧻"},
+  {name:"Personal Care",   icon:"🧴"},
+  {name:"Other",           icon:"📦"}
+];
+const UNITS = ["ct","lb","oz","kg","g","gal","qt","L","ml","pack","box","bag","bunch","dozen","jar","can","bottle"];
+const PRIOS = ["Urgent","Normal","Whenever"];
+
+/* ============================================================
+   2. State + tiny helpers
+   ============================================================ */
+const LS = {
+  get(k,d){ try{ const v=localStorage.getItem(k); return v===null?d:JSON.parse(v);}catch(e){return d;} },
+  set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} },
+  del(k){ try{ localStorage.removeItem(k);}catch(e){} }
+};
+
+const S = {
+  url: LS.get("gh.url",""),
+  auth: LS.get("gh.auth",false),
+  view: "list",
+  groceries: LS.get("gh.cache.g",[]),
+  todos: LS.get("gh.cache.t",[]),
+  q:"", fStore:"", fCat:"", fPrio:"",
+  loaded:false, busy:false, editing:null,
+  addOpen:false, moreOpen:false,
+  draft:{store:"Costco", customStore:"", unit:"", cat:"Produce", prio:"Normal"}
+};
+
+const $ = s => document.querySelector(s);
+const el = (t,c,h)=>{const n=document.createElement(t); if(c)n.className=c; if(h!=null)n.innerHTML=h; return n;};
+const esc = s => String(s==null?"":s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+const uid = p => p+"_"+Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const today = () => new Date().toISOString().slice(0,10);
+
+function hueOf(store){
+  const f = STORES.find(s=>s.name===store);
+  if(f) return f.hue;
+  let h=0; for(const ch of String(store||"")) h=(h*31+ch.charCodeAt(0))%360;
+  return h;
+}
+function iconOf(store){ const f=STORES.find(s=>s.name===store); return f?f.icon:"📍"; }
+function catIcon(c){ const f=CATS.find(x=>x.name===c); return f?f.icon:"📦"; }
+function storeStyle(store){
+  const h=hueOf(store);
+  return `background:hsl(${h} 62% 94% / 1);color:hsl(${h} 55% 28%);border-color:hsl(${h} 45% 80%)`;
+}
+function isDark(){
+  const t=document.documentElement.getAttribute("data-theme");
+  if(t) return t==="dark";
+  return window.matchMedia("(prefers-color-scheme:dark)").matches;
+}
+function storeChipStyle(store){
+  const h=hueOf(store);
+  return isDark()
+    ? `background:hsl(${h} 40% 17%);color:hsl(${h} 55% 76%);border-color:hsl(${h} 35% 28%)`
+    : `background:hsl(${h} 62% 95%);color:hsl(${h} 52% 29%);border-color:hsl(${h} 45% 84%)`;
+}
+function swatch(store){ const h=hueOf(store); return `background:hsl(${h} 58% 52%)`; }
+
+function toast(msg,bad){
+  const box=$("#toasts");
+  while(box.children.length>=3) box.firstChild.remove();
+  const t=el("div","toast"+(bad?" bad":""),esc(msg));
+  box.appendChild(t);
+  setTimeout(()=>{ t.style.transition="opacity .3s"; t.style.opacity="0"; setTimeout(()=>t.remove(),300); }, bad?4200:2200);
+}
+let lastLocalNag=0;
+function nagLocal(){
+  if(Date.now()-lastLocalNag < 120000) return;
+  lastLocalNag=Date.now();
+  toast("Saved in this browser only — open ⚙ to sync with your sheet");
+}
+function fmtDate(d){
+  if(!d) return "";
+  const dt=new Date(d+(d.length===10?"T12:00:00":""));
+  if(isNaN(dt)) return d;
+  return dt.toLocaleDateString(undefined,{month:"short",day:"numeric",year: dt.getFullYear()===new Date().getFullYear()?undefined:"numeric"});
+}
+function relDue(d){
+  if(!d) return null;
+  const t=new Date(today()+"T12:00:00"), dt=new Date(d+"T12:00:00");
+  const days=Math.round((dt-t)/86400000);
+  if(days<0) return {txt:(days===-1?"Yesterday":Math.abs(days)+" days overdue"), late:true};
+  if(days===0) return {txt:"Today", late:false, soon:true};
+  if(days===1) return {txt:"Tomorrow", soon:true};
+  if(days<=7) return {txt:"In "+days+" days"};
+  return {txt:fmtDate(d)};
+}
+
+/* ============================================================
+   3. Sheets API (Apps Script web app)
+   ============================================================ */
+function setSync(state,label){
+  const p=$("#syncPill"); p.dataset.s=state; $("#syncLbl").textContent=label;
+}
+async function apiGet(url){
+  const u=(url||S.url);
+  if(!u) throw new Error("No web app URL configured.");
+  const r=await fetch(u+(u.indexOf("?")<0?"?":"&")+"action=read&_="+Date.now(),{method:"GET",redirect:"follow"});
+  if(!r.ok) throw new Error("HTTP "+r.status);
+  const j=await r.json();
+  if(!j.ok) throw new Error(j.error||"Sheet returned an error.");
+  return j;
+}
+async function apiPost(action,payload){
+  if(!S.url) throw new Error("No web app URL configured.");
+  // text/plain body => "simple request" => no CORS preflight (Apps Script can't answer OPTIONS)
+  const r=await fetch(S.url,{
+    method:"POST", redirect:"follow",
+    headers:{"Content-Type":"text/plain;charset=utf-8"},
+    body:JSON.stringify({token:AUTH_USER+":"+AUTH_PASS, action, payload})
+  });
+  if(!r.ok) throw new Error("HTTP "+r.status);
+  const j=await r.json();
+  if(!j.ok) throw new Error(j.error||"Write failed.");
+  return j;
+}
+function cache(){ LS.set("gh.cache.g",S.groceries); LS.set("gh.cache.t",S.todos); }
+
+async function refresh(silent){
+  if(!S.url){ setSync("off","Local only"); render(); return; }
+  setSync("busy","Syncing…");
+  try{
+    const j=await apiGet();
+    S.groceries=(j.groceries||[]).map(normG);
+    S.todos=(j.todos||[]).map(normT);
+    S.loaded=true; cache();
+    setSync("ok","Synced "+new Date().toLocaleTimeString([], {hour:"numeric",minute:"2-digit"}));
+    render();
+  }catch(e){
+    setSync("err","Sync failed");
+    if(!silent) toast("Could not reach the sheet: "+e.message,true);
+    render();
+  }
+}
+function normG(r){
+  return {
+    id:r.id||uid("g"), item:r.item||"", store:r.store||"Other",
+    qty:r.qty===""||r.qty==null?"":r.qty, unit:r.unit||"",
+    category:r.category||"Other", priority:PRIOS.indexOf(r.priority)>=0?r.priority:"Normal",
+    notes:r.notes||"", status:r.status==="bought"?"bought":"pending",
+    addedAt:r.addedAt||today(), boughtAt:r.boughtAt||""
+  };
+}
+function normT(r){
+  return {
+    id:r.id||uid("t"), task:r.task||"", priority:PRIOS.indexOf(r.priority)>=0?r.priority:"Normal",
+    due:r.due||"", notes:r.notes||"", status:r.status==="done"?"done":"open",
+    addedAt:r.addedAt||today(), doneAt:r.doneAt||""
+  };
+}
+
+/* optimistic write: mutate locally, push, roll back on failure */
+async function push(action,payload,rollback){
+  cache(); render();
+  if(!S.url){ setSync("off","Local only"); nagLocal(); return; }
+  setSync("busy","Saving…");
+  try{
+    await apiPost(action,payload);
+    setSync("ok","Saved "+new Date().toLocaleTimeString([], {hour:"numeric",minute:"2-digit"}));
+  }catch(e){
+    setSync("err","Save failed");
+    toast("Didn't save: "+e.message,true);
+    if(rollback) rollback();
+    cache(); render();
+  }
+}
+
+/* ============================================================
+   4. Mutations
+   ============================================================ */
+function addGrocery(o){
+  const row=normG(Object.assign({id:uid("g"),addedAt:today(),status:"pending"},o));
+  S.groceries.unshift(row);
+  push("upsertGrocery",row,()=>{ S.groceries=S.groceries.filter(x=>x.id!==row.id); });
+}
+function addTodo(o){
+  const row=normT(Object.assign({id:uid("t"),addedAt:today(),status:"open"},o));
+  S.todos.unshift(row);
+  push("upsertTodo",row,()=>{ S.todos=S.todos.filter(x=>x.id!==row.id); });
+}
+function toggleG(id){
+  const r=S.groceries.find(x=>x.id===id); if(!r) return;
+  const prev={status:r.status,boughtAt:r.boughtAt};
+  if(r.status==="pending"){ r.status="bought"; r.boughtAt=today(); }
+  else { r.status="pending"; r.boughtAt=""; }
+  push("upsertGrocery",r,()=>Object.assign(r,prev));
+}
+function toggleT(id){
+  const r=S.todos.find(x=>x.id===id); if(!r) return;
+  const prev={status:r.status,doneAt:r.doneAt};
+  if(r.status==="open"){ r.status="done"; r.doneAt=today(); }
+  else { r.status="open"; r.doneAt=""; }
+  push("upsertTodo",r,()=>Object.assign(r,prev));
+}
+function delRow(kind,id){
+  const arr = kind==="g"?S.groceries:S.todos;
+  const i=arr.findIndex(x=>x.id===id); if(i<0) return;
+  const row=arr[i]; arr.splice(i,1);
+  push(kind==="g"?"deleteGrocery":"deleteTodo",{id},()=>arr.splice(i,0,row));
+}
+function restock(id){
+  const r=S.groceries.find(x=>x.id===id); if(!r) return;
+  addGrocery({item:r.item,store:r.store,qty:r.qty,unit:r.unit,category:r.category,priority:"Normal",notes:r.notes});
+  toast("Added back to the list");
+}
+
+/* ============================================================
+   5. Rendering
+   ============================================================ */
+function storeOptions(sel,includeAll){
+  let h = includeAll?`<option value="">All stores</option>`:"";
+  const known=STORES.map(s=>s.name);
+  for(const s of STORES) h+=`<option value="${esc(s.name)}"${sel===s.name?" selected":""}>${s.icon} ${esc(s.name)}</option>`;
+  if(sel && known.indexOf(sel)<0) h+=`<option value="${esc(sel)}" selected>📍 ${esc(sel)}</option>`;
+  if(includeAll){
+    const custom=[...new Set(S.groceries.map(g=>g.store))].filter(n=>known.indexOf(n)<0);
+    for(const n of custom) h+=`<option value="${esc(n)}"${sel===n?" selected":""}>📍 ${esc(n)}</option>`;
+  }
+  return h;
+}
+function catOptions(sel,includeAll){
+  let h = includeAll?`<option value="">All categories</option>`:"";
+  for(const c of CATS) h+=`<option value="${esc(c.name)}"${sel===c.name?" selected":""}>${c.icon} ${esc(c.name)}</option>`;
+  return h;
+}
+function prioOptions(sel,includeAll){
+  let h = includeAll?`<option value="">Any priority</option>`:"";
+  for(const p of PRIOS) h+=`<option value="${p}"${sel===p?" selected":""}>${p==="Urgent"?"🔴":p==="Normal"?"🟡":"⚪"} ${p}</option>`;
+  return h;
+}
+function unitOptions(sel){
+  let h=`<option value="">unit</option>`;
+  for(const u of UNITS) h+=`<option value="${u}"${sel===u?" selected":""}>${u}</option>`;
+  if(sel && UNITS.indexOf(sel)<0) h+=`<option value="${esc(sel)}" selected>${esc(sel)}</option>`;
+  return h;
+}
+
+function matches(g){
+  if(S.fStore && g.store!==S.fStore) return false;
+  if(S.fCat && g.category!==S.fCat) return false;
+  if(S.fPrio && g.priority!==S.fPrio) return false;
+  if(S.q){
+    const q=S.q.toLowerCase();
+    if(!((g.item||"")+" "+(g.notes||"")+" "+(g.store||"")+" "+(g.category||"")).toLowerCase().includes(q)) return false;
+  }
+  return true;
+}
+
+function groceryRow(g,mode){
+  const done = g.status==="bought";
+  const prioCls = g.priority==="Urgent"?"p-urgent":g.priority==="Whenever"?"p-whenever":"";
+  const qty = (g.qty!==""&&g.qty!=null) ? `<span class="chip qty">${esc(g.qty)}${g.unit?" "+esc(g.unit):""}</span>` : (g.unit?`<span class="chip qty">${esc(g.unit)}</span>`:"");
+  const dateChip = mode==="history" && g.boughtAt ? `<span class="chip">🗓 ${esc(fmtDate(g.boughtAt))}</span>` : "";
+  return `<div class="row ${done?"done":""} ${(!done&&g.priority==="Urgent")?"urgent":""}" data-id="${esc(g.id)}">
+    <button class="chk" role="checkbox" aria-checked="${done}" data-act="toggleG" data-id="${esc(g.id)}" ${S.auth?"":"disabled"} title="${done?"Move back to list":"Mark as bought"}">✓</button>
+    <div class="main">
+      <div class="nm">${esc(g.item)||"<em>Untitled</em>"}</div>
+      <div class="meta">
+        ${qty}
+        <span class="chip store" style="${storeChipStyle(g.store)}">${iconOf(g.store)} ${esc(g.store)}</span>
+        <span class="chip">${catIcon(g.category)} ${esc(g.category)}</span>
+        ${g.priority!=="Normal"?`<span class="chip ${prioCls}">${g.priority==="Urgent"?"🔴":"⚪"} ${esc(g.priority)}</span>`:""}
+        ${dateChip}
+      </div>
+      ${g.notes?`<div class="note">${esc(g.notes)}</div>`:""}
+    </div>
+    ${S.auth?`<div class="rowacts">
+      ${mode==="history"?`<button class="mini" data-act="restock" data-id="${esc(g.id)}" title="Add back to list">↺</button>`:""}
+      <button class="mini" data-act="editG" data-id="${esc(g.id)}" title="Edit">✎</button>
+      <button class="mini del" data-act="delG" data-id="${esc(g.id)}" title="Delete">🗑</button>
+    </div>`:""}
+  </div>`;
+}
+
+function todoRow(t){
+  const done=t.status==="done";
+  const due=relDue(t.due);
+  return `<div class="row ${done?"done":""} ${(!done&&t.priority==="Urgent")?"urgent":""}" data-id="${esc(t.id)}">
+    <button class="chk" role="checkbox" aria-checked="${done}" data-act="toggleT" data-id="${esc(t.id)}" ${S.auth?"":"disabled"} title="${done?"Reopen":"Mark done"}">✓</button>
+    <div class="main">
+      <div class="nm">${esc(t.task)||"<em>Untitled</em>"}</div>
+      <div class="meta">
+        ${t.priority!=="Normal"?`<span class="chip ${t.priority==="Urgent"?"p-urgent":"p-whenever"}">${t.priority==="Urgent"?"🔴":"⚪"} ${esc(t.priority)}</span>`:""}
+        ${due&&!done?`<span class="chip ${due.late?"p-urgent":""}">🗓 ${esc(due.txt)}</span>`:""}
+        ${done&&t.doneAt?`<span class="chip">✓ ${esc(fmtDate(t.doneAt))}</span>`:""}
+      </div>
+      ${t.notes?`<div class="note">${esc(t.notes)}</div>`:""}
+    </div>
+    ${S.auth?`<div class="rowacts">
+      <button class="mini" data-act="editT" data-id="${esc(t.id)}" title="Edit">✎</button>
+      <button class="mini del" data-act="delT" data-id="${esc(t.id)}" title="Delete">🗑</button>
+    </div>`:""}
+  </div>`;
+}
+
+function emptyBox(icon,title,body){
+  return `<div class="empty"><div class="big">${icon}</div><h3>${esc(title)}</h3><p>${body}</p></div>`;
+}
+
+function viewList(){
+  const pending=S.groceries.filter(g=>g.status==="pending");
+  const shown=pending.filter(matches);
+  const urgent=pending.filter(g=>g.priority==="Urgent").length;
+  const stores=new Set(pending.map(g=>g.store)).size;
+  const boughtThisWeek=S.groceries.filter(g=>{
+    if(g.status!=="bought"||!g.boughtAt) return false;
+    return (new Date()-new Date(g.boughtAt+"T12:00:00"))<7*86400000;
+  }).length;
+
+  let h=`<div class="stats">
+    <div class="stat"><div class="k">To buy</div><div class="v">${pending.length}</div></div>
+    <div class="stat"><div class="k">Urgent</div><div class="v" style="${urgent?"color:var(--red)":""}">${urgent}</div></div>
+    <div class="stat"><div class="k">Stores</div><div class="v">${stores}</div></div>
+    <div class="stat"><div class="k">Bought</div><div class="v">${boughtThisWeek} <small>this week</small></div></div>
+  </div>
+
+  <div class="toolbar">
+    <label class="search"><span class="ic">🔎</span><input id="q" placeholder="Search items, notes, stores…" value="${esc(S.q)}"></label>
+    <select class="filt" id="fStore" data-active="${!!S.fStore}">${storeOptions(S.fStore,true)}</select>
+    <select class="filt" id="fCat" data-active="${!!S.fCat}">${catOptions(S.fCat,true)}</select>
+    <select class="filt" id="fPrio" data-active="${!!S.fPrio}">${prioOptions(S.fPrio,true)}</select>
+    ${(S.q||S.fStore||S.fCat||S.fPrio)?`<button class="btn ghost sm" id="clearF">Clear</button>`:""}
+    ${S.auth?`<button class="btn primary" id="openAdd">＋ Add item</button>`:""}
+  </div>`;
+
+  if(S.auth){
+    const d=S.draft;
+    h+=`<div class="addpanel ${S.addOpen?"":"hide"}" id="addPanel">
+      <div class="addgrid">
+        <div class="f"><label class="lbl" for="aItem">Item</label><input class="fld" id="aItem" placeholder="Toor dal, paneer, paper towels…"></div>
+        <div class="f"><label class="lbl" for="aStore">Store</label><select class="fld" id="aStore">${storeOptions(d.store,false)}</select></div>
+        <div class="f"><label class="lbl" for="aQty">Qty</label><input class="fld" id="aQty" placeholder="2" inputmode="decimal"></div>
+        <div class="f"><label class="lbl" for="aUnit">Unit</label><select class="fld" id="aUnit">${unitOptions(d.unit)}</select></div>
+        <div class="f" style="justify-content:flex-end"><button class="btn primary" id="doAdd" style="height:38px">Add</button></div>
+      </div>
+      <div class="addmore ${S.moreOpen?"open":""}" id="addMore">
+        <div class="f"><label class="lbl" for="aCat">Category</label><select class="fld" id="aCat">${catOptions(d.cat,false)}</select></div>
+        <div class="f"><label class="lbl" for="aPrio">Priority</label><select class="fld" id="aPrio">${prioOptions(d.prio,false)}</select></div>
+        <div class="f"><label class="lbl" for="aNotes">Notes</label><input class="fld" id="aNotes" placeholder="Brand, size, aisle, for whom…"></div>
+      </div>
+      <div class="f ${d.store==="Other"?"":"hide"}" id="customStoreWrap" style="margin-top:8px">
+        <label class="lbl" for="aStoreCustom">Store name</label>
+        <input class="fld" id="aStoreCustom" placeholder="Trader Joe's, 99 Ranch, Sprouts…" value="${esc(d.customStore)}">
+      </div>
+      <div class="addfoot">
+        <button class="btn ghost sm" id="toggleMore">${S.moreOpen?"Fewer options ▴":"More options ▾"}</button>
+        <span class="hint" style="margin:0">Store and category stay put, so a run of items from one shop is quick. Enter adds.</span>
+      </div>
+    </div>`;
+  }
+
+  if(!shown.length){
+    h += pending.length
+      ? emptyBox("🔍","Nothing matches those filters","Try clearing the search or picking a different store.")
+      : emptyBox("🛒","Your list is empty","Nothing to buy right now. "+(S.auth?"Use <b>Add item</b> above to start a new list.":"Sign in to start adding items."));
+    return h;
+  }
+
+  const byStore={};
+  for(const g of shown){ (byStore[g.store]=byStore[g.store]||[]).push(g); }
+  const order=Object.keys(byStore).sort((a,b)=>{
+    const ia=STORES.findIndex(s=>s.name===a), ib=STORES.findIndex(s=>s.name===b);
+    return (ia<0?99:ia)-(ib<0?99:ib) || a.localeCompare(b);
+  });
+  const rank={Urgent:0,Normal:1,Whenever:2};
+  for(const st of order){
+    const items=byStore[st].sort((a,b)=>(rank[a.priority]-rank[b.priority])||a.category.localeCompare(b.category)||a.item.localeCompare(b.item));
+    h+=`<div class="group">
+      <div class="ghead">
+        <span class="swatch" style="${swatch(st)}"></span>
+        <span class="name">${iconOf(st)} ${esc(st)}</span>
+        <span class="n">${items.length} item${items.length===1?"":"s"}</span>
+        <span class="line"></span>
+      </div>
+      <div class="card">${items.map(g=>groceryRow(g,"list")).join("")}</div>
+    </div>`;
+  }
+  return h;
+}
+
+function viewTodo(){
+  const open=S.todos.filter(t=>t.status==="open");
+  const done=S.todos.filter(t=>t.status==="done");
+  const overdue=open.filter(t=>t.due && t.due<today()).length;
+  const dueToday=open.filter(t=>t.due===today()).length;
+
+  let h=`<div class="stats">
+    <div class="stat"><div class="k">Open</div><div class="v">${open.length}</div></div>
+    <div class="stat"><div class="k">Due today</div><div class="v">${dueToday}</div></div>
+    <div class="stat"><div class="k">Overdue</div><div class="v" style="${overdue?"color:var(--red)":""}">${overdue}</div></div>
+    <div class="stat"><div class="k">Done</div><div class="v">${done.length}</div></div>
+  </div>`;
+
+  if(S.auth){
+    h+=`<div class="addpanel" style="margin-top:18px">
+      <div class="addgrid" style="grid-template-columns:2.4fr 1fr 1fr auto">
+        <div class="f"><label class="lbl" for="tTask">Task</label><input class="fld" id="tTask" placeholder="Call the plumber, renew costco membership…"></div>
+        <div class="f"><label class="lbl" for="tPrio">Priority</label><select class="fld" id="tPrio">${prioOptions("Normal",false)}</select></div>
+        <div class="f"><label class="lbl" for="tDue">Due</label><input class="fld" id="tDue" type="date"></div>
+        <div class="f" style="justify-content:flex-end"><button class="btn primary" id="doAddT" style="height:38px">Add</button></div>
+      </div>
+      <div class="f" style="margin-top:8px"><label class="lbl" for="tNotes">Notes</label><input class="fld" id="tNotes" placeholder="Optional details"></div>
+    </div>`;
+  }
+
+  const rank={Urgent:0,Normal:1,Whenever:2};
+  const sorted=open.slice().sort((a,b)=>{
+    const ad=a.due||"9999", bd=b.due||"9999";
+    return (rank[a.priority]-rank[b.priority]) || ad.localeCompare(bd) || a.task.localeCompare(b.task);
+  });
+
+  if(!open.length && !done.length){
+    h+=emptyBox("✅","No to-dos yet",S.auth?"Add your first task above.":"Sign in to add tasks.");
+    return h;
+  }
+  if(sorted.length){
+    h+=`<div class="group"><div class="ghead"><span class="swatch" style="background:var(--accent)"></span>
+      <span class="name">Open</span><span class="n">${sorted.length}</span><span class="line"></span></div>
+      <div class="card">${sorted.map(todoRow).join("")}</div></div>`;
+  }
+  if(done.length){
+    const d=done.slice().sort((a,b)=>(b.doneAt||"").localeCompare(a.doneAt||""));
+    h+=`<div class="group"><div class="ghead"><span class="swatch" style="background:var(--faint)"></span>
+      <span class="name">Completed</span><span class="n">${d.length}</span><span class="line"></span></div>
+      <div class="card">${d.slice(0,50).map(todoRow).join("")}</div></div>`;
+  }
+  return h;
+}
+
+function viewHistory(){
+  const bought=S.groceries.filter(g=>g.status==="bought").filter(matches);
+  let h=`<div class="toolbar">
+    <label class="search"><span class="ic">🔎</span><input id="q" placeholder="Search past purchases…" value="${esc(S.q)}"></label>
+    <select class="filt" id="fStore" data-active="${!!S.fStore}">${storeOptions(S.fStore,true)}</select>
+    <select class="filt" id="fCat" data-active="${!!S.fCat}">${catOptions(S.fCat,true)}</select>
+    ${(S.q||S.fStore||S.fCat||S.fPrio)?`<button class="btn ghost sm" id="clearF">Clear</button>`:""}
+  </div>`;
+  if(!bought.length){
+    h+=emptyBox("📦","Nothing here yet","Items you check off on the shopping list land here with the date you bought them — handy for working out when to restock.");
+    return h;
+  }
+  const byMonth={};
+  for(const g of bought){
+    const k=(g.boughtAt||"").slice(0,7)||"Unknown";
+    (byMonth[k]=byMonth[k]||[]).push(g);
+  }
+  for(const k of Object.keys(byMonth).sort().reverse()){
+    const label = k==="Unknown" ? "Undated" :
+      new Date(k+"-01T12:00:00").toLocaleDateString(undefined,{month:"long",year:"numeric"});
+    const items=byMonth[k].sort((a,b)=>(b.boughtAt||"").localeCompare(a.boughtAt||""));
+    h+=`<div class="group">
+      <div class="ghead"><span class="swatch" style="background:var(--faint)"></span>
+        <span class="name">${esc(label)}</span><span class="n">${items.length}</span><span class="line"></span></div>
+      <div class="card">${items.map(g=>groceryRow(g,"history")).join("")}</div>
+    </div>`;
+  }
+  return h;
+}
+
+function render(){
+  $("#cList").textContent=S.groceries.filter(g=>g.status==="pending").length;
+  $("#cTodo").textContent=S.todos.filter(t=>t.status==="open").length;
+  $("#cHist").textContent=S.groceries.filter(g=>g.status==="bought").length;
+  document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected",String(t.dataset.view===S.view)));
+  $("#authBtn").textContent = S.auth ? "Sign out" : "Sign in";
+  $("#roBanner").classList.toggle("hide", S.auth);
+  $("#content").innerHTML = S.view==="list"?viewList() : S.view==="todo"?viewTodo() : viewHistory();
+  wireContent();
+}
+
+/* ============================================================
+   6. Events
+   ============================================================ */
+function wireContent(){
+  const q=$("#q");
+  if(q){
+    q.addEventListener("input",()=>{ S.q=q.value; const p=q.selectionStart; render(); const n=$("#q"); if(n){n.focus(); try{n.setSelectionRange(p,p);}catch(e){}} });
+  }
+  const bind=(id,key)=>{ const n=$(id); if(n) n.addEventListener("change",()=>{ S[key]=n.value; render(); }); };
+  bind("#fStore","fStore"); bind("#fCat","fCat"); bind("#fPrio","fPrio");
+  const cf=$("#clearF"); if(cf) cf.addEventListener("click",()=>{ S.q="";S.fStore="";S.fCat="";S.fPrio=""; render(); });
+
+  const openAdd=$("#openAdd");
+  if(openAdd) openAdd.addEventListener("click",()=>{
+    S.addOpen=!S.addOpen; render();
+    if(S.addOpen && $("#aItem")) $("#aItem").focus();
+  });
+  const tm=$("#toggleMore");
+  if(tm) tm.addEventListener("click",()=>{ S.moreOpen=!S.moreOpen; render(); });
+
+  const aStore=$("#aStore");
+  if(aStore) aStore.addEventListener("change",()=>{
+    S.draft.store=aStore.value;
+    $("#customStoreWrap").classList.toggle("hide", aStore.value!=="Other");
+    if(aStore.value==="Other") $("#aStoreCustom").focus();
+  });
+  const bindDraft=(id,key)=>{ const n=$(id); if(n) n.addEventListener("change",()=>{ S.draft[key]=n.value; }); };
+  bindDraft("#aUnit","unit"); bindDraft("#aCat","cat"); bindDraft("#aPrio","prio"); bindDraft("#aStoreCustom","customStore");
+
+  const doAdd=$("#doAdd");
+  if(doAdd){
+    const submit=()=>{
+      const item=$("#aItem").value.trim();
+      if(!item){ $("#aItem").focus(); toast("Give the item a name first",true); return; }
+      let store=$("#aStore").value;
+      S.draft.store=store;
+      S.draft.unit=$("#aUnit").value;
+      if($("#aCat")) S.draft.cat=$("#aCat").value;
+      if($("#aPrio")) S.draft.prio=$("#aPrio").value;
+      if(store==="Other"){
+        const c=$("#aStoreCustom").value.trim();
+        S.draft.customStore=c;
+        if(c) store=c;
+      }
+      S.addOpen=true;
+      addGrocery({
+        item, store,
+        qty:$("#aQty").value.trim(), unit:S.draft.unit,
+        category:$("#aCat")?$("#aCat").value:"Other",
+        priority:$("#aPrio")?$("#aPrio").value:"Normal",
+        notes:$("#aNotes")?$("#aNotes").value.trim():""
+      });
+      const n=$("#aItem"); if(n){ n.value=""; n.focus(); }
+      const qn=$("#aQty"); if(qn) qn.value="";
+      const nt=$("#aNotes"); if(nt) nt.value="";
+    };
+    doAdd.addEventListener("click",submit);
+    $("#aItem").addEventListener("keydown",e=>{ if(e.key==="Enter") submit(); });
+    $("#aQty").addEventListener("keydown",e=>{ if(e.key==="Enter") submit(); });
+    const an=$("#aNotes"); if(an) an.addEventListener("keydown",e=>{ if(e.key==="Enter") submit(); });
+  }
+  const doAddT=$("#doAddT");
+  if(doAddT){
+    const submitT=()=>{
+      const task=$("#tTask").value.trim();
+      if(!task){ $("#tTask").focus(); toast("Give the task a name first",true); return; }
+      addTodo({task,priority:$("#tPrio").value,due:$("#tDue").value,notes:$("#tNotes").value.trim()});
+      $("#tTask").value=""; $("#tNotes").value=""; $("#tDue").value="";
+      const n=$("#tTask"); if(n) n.focus();
+    };
+    doAddT.addEventListener("click",submitT);
+    $("#tTask").addEventListener("keydown",e=>{ if(e.key==="Enter") submitT(); });
+  }
+}
+
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-act]");
+  if(!b) return;
+  const id=b.dataset.id, a=b.dataset.act;
+  if(!S.auth){ toast("Sign in to make changes",true); return; }
+  if(a==="toggleG") toggleG(id);
+  else if(a==="toggleT") toggleT(id);
+  else if(a==="delG"){ if(confirm("Delete this item?")) delRow("g",id); }
+  else if(a==="delT"){ if(confirm("Delete this task?")) delRow("t",id); }
+  else if(a==="restock") restock(id);
+  else if(a==="editG") openEdit("g",id);
+  else if(a==="editT") openEdit("t",id);
+});
+
+document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>{ S.view=t.dataset.view; render(); window.scrollTo({top:0,behavior:"smooth"}); }));
+
+/* ---- modals ---- */
+function open(id){ $(id).classList.add("open"); }
+function close(id){ $(id).classList.remove("open"); }
+document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>b.closest(".scrim").classList.remove("open")));
+document.querySelectorAll(".scrim").forEach(s=>s.addEventListener("click",e=>{ if(e.target===s) s.classList.remove("open"); }));
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") document.querySelectorAll(".scrim.open").forEach(s=>s.classList.remove("open")); });
+
+$("#authBtn").addEventListener("click",()=>{
+  if(S.auth){ S.auth=false; LS.set("gh.auth",false); toast("Signed out — view only"); render(); }
+  else { $("#loginErr").classList.remove("show"); $("#luser").value=""; $("#lpass").value=""; open("#loginScrim"); setTimeout(()=>$("#luser").focus(),40); }
+});
+$("#roSignin").addEventListener("click",()=>$("#authBtn").click());
+function tryLogin(){
+  if($("#luser").value.trim().toLowerCase()===AUTH_USER && $("#lpass").value===AUTH_PASS){
+    S.auth=true; LS.set("gh.auth",true); close("#loginScrim"); toast("Signed in — you can edit now"); render();
+  } else {
+    $("#loginErr").classList.add("show");
+  }
+}
+$("#loginGo").addEventListener("click",tryLogin);
+$("#lpass").addEventListener("keydown",e=>{ if(e.key==="Enter") tryLogin(); });
+$("#luser").addEventListener("keydown",e=>{ if(e.key==="Enter") $("#lpass").focus(); });
+
+$("#cfgBtn").addEventListener("click",()=>{ $("#cfgUrl").value=S.url; $("#cfgErr").classList.remove("show"); open("#cfgScrim"); });
+$("#cfgTest").addEventListener("click",async()=>{
+  const u=$("#cfgUrl").value.trim(); const err=$("#cfgErr");
+  if(!u){ err.textContent="Paste the /exec URL first."; err.classList.add("show"); return; }
+  err.classList.remove("show"); $("#cfgTest").textContent="Testing…"; $("#cfgTest").disabled=true;
+  try{
+    const j=await apiGet(u);
+    err.style.color="var(--accent-ink)";
+    err.textContent="Connected. Found "+(j.groceries||[]).length+" grocery rows and "+(j.todos||[]).length+" to-dos.";
+    err.classList.add("show");
+  }catch(ex){
+    err.style.color="var(--red)"; err.textContent="Couldn't reach it: "+ex.message; err.classList.add("show");
+  }
+  $("#cfgTest").textContent="Test"; $("#cfgTest").disabled=false;
+});
+$("#cfgSave").addEventListener("click",()=>{
+  S.url=$("#cfgUrl").value.trim(); LS.set("gh.url",S.url); close("#cfgScrim");
+  if(S.url) refresh(); else { setSync("off","Local only"); render(); }
+});
+$("#syncPill").addEventListener("click",()=>{ if(S.url) refresh(); else $("#cfgBtn").click(); });
+
+/* ---- edit modal ---- */
+function openEdit(kind,id){
+  const row = kind==="g" ? S.groceries.find(x=>x.id===id) : S.todos.find(x=>x.id===id);
+  if(!row) return;
+  S.editing={kind,id};
+  $("#editTitle").textContent = kind==="g" ? "Edit item" : "Edit task";
+  $("#editDesc").textContent  = kind==="g" ? "Change any detail, then save." : "Change the task, then save.";
+  $("#editBody").innerHTML = kind==="g" ? `
+    <div class="f"><label class="lbl" for="eItem">Item</label><input class="fld" id="eItem" value="${esc(row.item)}"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="f"><label class="lbl" for="eQty">Quantity</label><input class="fld" id="eQty" value="${esc(row.qty)}"></div>
+      <div class="f"><label class="lbl" for="eUnit">Unit</label><select class="fld" id="eUnit">${unitOptions(row.unit)}</select></div>
+    </div>
+    <div class="f"><label class="lbl" for="eStore">Store</label><select class="fld" id="eStore">${storeOptions(row.store,false)}</select></div>
+    <div class="f hide" id="eCustomWrap"><label class="lbl" for="eStoreCustom">Store name</label><input class="fld" id="eStoreCustom" placeholder="Trader Joe's, 99 Ranch…"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="f"><label class="lbl" for="eCat">Category</label><select class="fld" id="eCat">${catOptions(row.category,false)}</select></div>
+      <div class="f"><label class="lbl" for="ePrio">Priority</label><select class="fld" id="ePrio">${prioOptions(row.priority,false)}</select></div>
+    </div>
+    <div class="f"><label class="lbl" for="eBought">Purchase date</label><input class="fld" id="eBought" type="date" value="${esc(row.boughtAt)}"><div class="hint">Set this to record when you last bought it.</div></div>
+    <div class="f"><label class="lbl" for="eNotes">Notes</label><textarea class="fld" id="eNotes">${esc(row.notes)}</textarea></div>
+  ` : `
+    <div class="f"><label class="lbl" for="eTask">Task</label><input class="fld" id="eTask" value="${esc(row.task)}"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="f"><label class="lbl" for="ePrio">Priority</label><select class="fld" id="ePrio">${prioOptions(row.priority,false)}</select></div>
+      <div class="f"><label class="lbl" for="eDue">Due date</label><input class="fld" id="eDue" type="date" value="${esc(row.due)}"></div>
+    </div>
+    <div class="f"><label class="lbl" for="eNotes">Notes</label><textarea class="fld" id="eNotes">${esc(row.notes)}</textarea></div>
+  `;
+  const es=$("#eStore");
+  if(es){
+    const known=STORES.some(s=>s.name===row.store);
+    es.addEventListener("change",()=>$("#eCustomWrap").classList.toggle("hide", es.value!=="Other"));
+    if(!known){ /* custom store already listed as its own option */ }
+  }
+  open("#editScrim");
+}
+$("#editSave").addEventListener("click",()=>{
+  if(!S.editing) return;
+  const {kind,id}=S.editing;
+  if(kind==="g"){
+    const r=S.groceries.find(x=>x.id===id); if(!r) return;
+    const before=Object.assign({},r);
+    let store=$("#eStore").value;
+    if(store==="Other"){ const c=$("#eStoreCustom").value.trim(); if(c) store=c; }
+    r.item=$("#eItem").value.trim(); r.qty=$("#eQty").value.trim(); r.unit=$("#eUnit").value;
+    r.store=store; r.category=$("#eCat").value; r.priority=$("#ePrio").value;
+    r.boughtAt=$("#eBought").value; r.notes=$("#eNotes").value.trim();
+    if(r.boughtAt && r.status==="pending") r.status="bought";
+    if(!r.boughtAt && r.status==="bought") r.status="pending";
+    close("#editScrim");
+    push("upsertGrocery",r,()=>Object.assign(r,before));
+  } else {
+    const r=S.todos.find(x=>x.id===id); if(!r) return;
+    const before=Object.assign({},r);
+    r.task=$("#eTask").value.trim(); r.priority=$("#ePrio").value;
+    r.due=$("#eDue").value; r.notes=$("#eNotes").value.trim();
+    close("#editScrim");
+    push("upsertTodo",r,()=>Object.assign(r,before));
+  }
+  S.editing=null;
+  toast("Saved");
+});
+
+/* ---- theme ---- */
+function applyTheme(t){
+  if(t) document.documentElement.setAttribute("data-theme",t);
+  else document.documentElement.removeAttribute("data-theme");
+  LS.set("gh.theme",t||"");
+}
+applyTheme(LS.get("gh.theme","")||null);
+$("#themeBtn").addEventListener("click",()=>{
+  const cur=document.documentElement.getAttribute("data-theme");
+  const next = cur==="dark" ? "light" : cur==="light" ? "" : "dark";
+  applyTheme(next||null); render();
+});
+
+/* ============================================================
+   7. Boot
+   ============================================================ */
+(function boot(){
+  const p=new URLSearchParams(location.search);
+  if(p.get("url")){ S.url=p.get("url"); LS.set("gh.url",S.url); }
+  render();
+  if(S.url){ refresh(true); setInterval(()=>{ if(!document.hidden) refresh(true); }, 90000); }
+  else { setSync("off","Local only"); setTimeout(()=>toast("Open ⚙ to connect your Google Sheet"),700); }
+})();
+
+})();
+</script>
+</body>
+</html>
