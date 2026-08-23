@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ram's Grocery Hub</title>
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNjNiMzdhIi8+PHN0b3Agb2Zmc2V0PSIuNTUiIHN0b3AtY29sb3I9IiMzZDdhNGQiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMyYjVmNDYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSIxNSIgZmlsbD0idXJsKCNnKSIvPjxwYXRoIGQ9Ik0yMyAyN3YtNGE5IDkgMCAwIDEgMTggMHY0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMy40IiBzdHJva2UtbGluZWNhcD0icm91bmQiIG9wYWNpdHk9Ii45MiIvPjxwYXRoIGQ9Ik0xNC41IDI2LjVoMzVsLTMuMyAyMmE0LjIgNC4yIDAgMCAxLTQuMiAzLjZIMjJhNC4yIDQuMiAwIDAgMS00LjItMy42eiIgZmlsbD0iI2ZmZiIvPjxwYXRoIGQ9Ik0yNSAzOC40bDUgNSA5LjUtOS42IiBmaWxsPSJub25lIiBzdHJva2U9IiMyZjZiNDgiIHN0cm9rZS13aWR0aD0iMy42IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48L3N2Zz4K">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNjNiMzdhIi8+PHN0b3Agb2Zmc2V0PSIuNTUiIHN0b3AtY29sb3I9IiMzZDdhNGQiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMyYjVmNDYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSIxNSIgZmlsbD0idXJsKCNnKSIvPjxwYXRoIGQ9Ik0yMyAyN3YtNGE5IDkgMCAwIDEgMTggMHY0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMy40IiBzdHJva2UtbGluZWNhcD0icm91bmQiIG9wYWNpdHk9Ii45MiIvPjxwYXRoIGQ9Ik0xNC41IDI2LjVoMzVsLTMuMyAyMmE0LjIgNC4yIDAgMCAxLTQuMiAzLjZIMjJhNC4yIDQuMiAwIDAgMS00LjItMy42eiIgZmlsbD0iI2ZmZiIvPjxwYXRoIGQ9Ik0yNSAzOC40bDUgNSA5LjUtOS42IiBmaWxsPSJub25lIiBzdHJva2U9IiMyZjZiNDgiIHN0cm9rZS13aWR0aD0iMy42IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48L3N2Zz4K">
+<meta name="theme-color" content="#3d7a4d">
 <style>
 :root{
   --bg:#f6f5f1; --surface:#ffffff; --surface-2:#f0eee8; --surface-3:#e8e5dd;
@@ -70,11 +73,8 @@ a{color:var(--accent-ink)}
 .topbar-in{max-width:1080px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:12px}
 @media (max-width:600px){ .topbar-in{padding:10px 12px;gap:8px} }
 .brand{display:flex;align-items:center;gap:10px;margin-right:auto;min-width:0}
-.mark{
-  width:34px;height:34px;border-radius:10px;flex:none;
-  background:linear-gradient(140deg,var(--accent),color-mix(in srgb,var(--accent) 55%,var(--blue)));
-  display:grid;place-items:center;font-size:17px;box-shadow:var(--shadow-sm);
-}
+.mark{width:34px;height:34px;border-radius:10px;flex:none;overflow:hidden;box-shadow:var(--shadow-sm);line-height:0}
+.mark svg{width:100%;height:100%;display:block}
 .brand h1{font-size:16px;font-weight:650;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .brand .sub{font-size:11.5px;color:var(--faint);white-space:nowrap}
 @media (max-width:520px){ .brand .sub{display:none} }
@@ -127,6 +127,43 @@ a{color:var(--accent-ink)}
   background:var(--surface-3);color:var(--dim);font-variant-numeric:tabular-nums;
 }
 .tab[aria-selected=true] .count{background:var(--accent-soft);color:var(--accent-ink)}
+
+/* ---------- quote ---------- */
+.quote{
+  position:relative;margin:18px 0 0;padding:20px 56px 20px 26px;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-sm);overflow:hidden;
+}
+.quote::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,var(--accent),color-mix(in srgb,var(--accent) 45%,var(--amber)));
+}
+.qmark{
+  position:absolute;left:14px;top:2px;font-size:52px;line-height:1;color:var(--accent);
+  opacity:.16;font-family:Georgia,"Times New Roman",serif;pointer-events:none;user-select:none;
+}
+.qbody{position:relative;min-height:74px;display:flex;flex-direction:column;justify-content:center;transition:opacity .25s ease, transform .25s ease}
+.qbody.swap{opacity:0;transform:translateY(4px)}
+.quote p{
+  font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+  font-size:15.5px;line-height:1.68;font-style:italic;color:var(--text);
+  max-width:66ch;text-wrap:pretty;
+}
+.quote .who{
+  margin-top:11px;font-size:11px;font-weight:650;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--faint);font-style:normal;
+}
+.quote .who .src{text-transform:none;letter-spacing:.02em;font-weight:500;opacity:.85}
+.qre{
+  position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:8px;
+  display:grid;place-items:center;color:var(--dim);font-size:16px;transition:.15s;
+  border:1px solid var(--border);background:var(--surface-2);
+}
+.qre:hover{background:var(--surface-2);color:var(--accent-ink);border-color:var(--border)}
+.qre:active{transform:rotate(180deg)}
+.qre.spin{animation:spin .6s ease}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (max-width:600px){ .quote{padding:18px 48px 18px 22px} .quote p{font-size:14.5px} }
 
 /* ---------- stats ---------- */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0 0}
@@ -275,7 +312,7 @@ code{font-family:var(--mono);font-size:.9em;background:var(--surface-3);padding:
 <div class="topbar">
   <div class="topbar-in">
     <div class="brand">
-      <div class="mark">🛒</div>
+      <div class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#63b37a"/><stop offset=".55" stop-color="#3d7a4d"/><stop offset="1" stop-color="#2b5f46"/></linearGradient></defs><rect width="64" height="64" rx="15" fill="url(#g)"/><path d="M23 27v-4a9 9 0 0 1 18 0v4" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" opacity=".92"/><path d="M14.5 26.5h35l-3.3 22a4.2 4.2 0 0 1-4.2 3.6H22a4.2 4.2 0 0 1-4.2-3.6z" fill="#fff"/><path d="M25 38.4l5 5 9.5-9.6" fill="none" stroke="#2f6b48" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div>
         <h1>Ram's Grocery Hub</h1>
         <div class="sub" id="brandSub">Groceries &amp; to-dos, synced to Google Sheets</div>
@@ -296,6 +333,15 @@ code{font-family:var(--mono);font-size:.9em;background:var(--surface-3);padding:
     <button class="tab" role="tab" data-view="todo" aria-selected="false">✅ To-do <span class="count" id="cTodo">0</span></button>
     <button class="tab" role="tab" data-view="history" aria-selected="false">📦 History <span class="count" id="cHist">0</span></button>
   </div>
+
+  <section class="quote" id="quoteCard" aria-live="polite">
+    <span class="qmark" aria-hidden="true">&ldquo;</span>
+    <div class="qbody" id="qBody">
+      <p id="qText"></p>
+      <div class="who" id="qWho"></div>
+    </div>
+    <button class="qre" id="qRefresh" title="Another one" aria-label="Show another quote">&#8635;</button>
+  </section>
 
   <div id="roBanner" class="readonly-banner hide">
     <span>👀</span><span><b>View-only mode.</b> Sign in to add, edit or check off items.</span>
@@ -1074,10 +1120,114 @@ $("#themeBtn").addEventListener("click",()=>{
   applyTheme(next||null); render();
 });
 
+const QUOTES = [
+  {t:"It is not the critic who counts; not the man who points out how the strong man stumbles. The credit belongs to the man who is actually in the arena, whose face is marred by dust and sweat and blood; who errs, who comes short again and again; who at the best knows in the end the triumph of high achievement.",a:"Theodore Roosevelt",s:"Citizenship in a Republic, 1910"},
+  {t:"Everything can be taken from a man but one thing: the last of the human freedoms — to choose one's attitude in any given set of circumstances, to choose one's own way.",a:"Viktor Frankl",s:"Man's Search for Meaning"},
+  {t:"Waste no more time arguing about what a good man should be. Be one.",a:"Marcus Aurelius",s:"Meditations"},
+  {t:"The impediment to action advances action. What stands in the way becomes the way.",a:"Marcus Aurelius",s:"Meditations"},
+  {t:"You could leave life right now. Let that determine what you do and say and think.",a:"Marcus Aurelius",s:"Meditations"},
+  {t:"We suffer more often in imagination than in reality.",a:"Seneca",s:"Letters to Lucilius"},
+  {t:"It is not that we have a short time to live, but that we waste a lot of it.",a:"Seneca",s:"On the Shortness of Life"},
+  {t:"Men are disturbed not by things, but by the views which they take of things.",a:"Epictetus",s:"Enchiridion"},
+  {t:"You have a right to perform your prescribed duties, but you are not entitled to the fruits of your actions. Never consider yourself the cause of the results, and never be attached to not doing your duty.",a:"Bhagavad Gita",s:"2.47"},
+  {t:"Arise, awake, and stop not till the goal is reached.",a:"Swami Vivekananda",s:""},
+  {t:"If you shed tears when you miss the sun, you also miss the stars.",a:"Rabindranath Tagore",s:"Stray Birds"},
+  {t:"Not everything that is faced can be changed, but nothing can be changed until it is faced.",a:"James Baldwin",s:"As Much Truth As One Can Bear"},
+  {t:"You may not control all the events that happen to you, but you can decide not to be reduced by them.",a:"Maya Angelou",s:"Letter to My Daughter"},
+  {t:"How we spend our days is, of course, how we spend our lives. What we do with this hour, and that one, is what we are doing.",a:"Annie Dillard",s:"The Writing Life"},
+  {t:"Tell me, what is it you plan to do with your one wild and precious life?",a:"Mary Oliver",s:"The Summer Day"},
+  {t:"Be patient toward all that is unsolved in your heart and try to love the questions themselves, like locked rooms and like books that are now written in a very foreign tongue.",a:"Rainer Maria Rilke",s:"Letters to a Young Poet"},
+  {t:"Walk as if you are kissing the Earth with your feet.",a:"Thich Nhat Hanh",s:"Peace Is Every Step"},
+  {t:"You'll never know everything about anything, especially something you love.",a:"Julia Child",s:""},
+  {t:"Nothing in life is to be feared, it is only to be understood. Now is the time to understand more, so that we may fear less.",a:"Marie Curie",s:""},
+  {t:"I have not failed. I've just found ten thousand ways that won't work.",a:"Thomas Edison",s:""},
+  {t:"The best time to plant a tree was twenty years ago. The second best time is now.",a:"Proverb",s:""},
+  {t:"It does not matter how slowly you go as long as you do not stop.",a:"Confucius",s:""},
+  {t:"Fall seven times, stand up eight.",a:"Japanese proverb",s:""},
+  {t:"A journey of a thousand miles begins with a single step.",a:"Lao Tzu",s:"Tao Te Ching"},
+  {t:"Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.",a:"Antoine de Saint-Exupery",s:"Wind, Sand and Stars"},
+  {t:"Everything should be made as simple as possible, but not simpler.",a:"Albert Einstein",s:"attributed"},
+  {t:"The two most powerful warriors are patience and time.",a:"Leo Tolstoy",s:"War and Peace"},
+  {t:"Do not go where the path may lead, go instead where there is no path and leave a trail.",a:"Ralph Waldo Emerson",s:"attributed"},
+  {t:"Whether you think you can or you think you can't, you're right.",a:"Henry Ford",s:"attributed"},
+  {t:"Success is not final, failure is not fatal: it is the courage to continue that counts.",a:"Winston Churchill",s:"attributed"},
+  {t:"What lies behind us and what lies before us are tiny matters compared to what lies within us.",a:"Henry Stanley Haskins",s:"Meditations in Wall Street"},
+  {t:"The only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle.",a:"Steve Jobs",s:"Stanford, 2005"},
+  {t:"Have the courage to follow your heart and intuition. They somehow already know what you truly want to become.",a:"Steve Jobs",s:"Stanford, 2005"},
+  {t:"In the middle of difficulty lies opportunity.",a:"Albert Einstein",s:"attributed"},
+  {t:"We are what we repeatedly do. Excellence, then, is not an act, but a habit.",a:"Will Durant",s:"The Story of Philosophy"},
+  {t:"Happiness is not something ready-made. It comes from your own actions.",a:"Dalai Lama XIV",s:""},
+  {t:"The wound is the place where the Light enters you.",a:"Rumi",s:""},
+  {t:"Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.",a:"Rumi",s:""},
+  {t:"Life is really simple, but we insist on making it complicated.",a:"Confucius",s:"attributed"},
+  {t:"Tension is who you think you should be. Relaxation is who you are.",a:"Chinese proverb",s:""},
+  {t:"If you want to go fast, go alone. If you want to go far, go together.",a:"African proverb",s:""},
+  {t:"An unhurried sense of time is in itself a form of wealth.",a:"Bonnie Friedman",s:""},
+  {t:"Enough is a feast.",a:"Buddhist proverb",s:""},
+  {t:"The best fertilizer for a garden is the gardener's shadow.",a:"Proverb",s:""},
+  {t:"First we eat, then we do everything else.",a:"M.F.K. Fisher",s:"attributed"},
+  {t:"Cooking is at once child's play and adult joy. And cooking done with care is an act of love.",a:"Craig Claiborne",s:""},
+  {t:"He who has a why to live can bear almost any how.",a:"Friedrich Nietzsche",s:"Twilight of the Idols"},
+  {t:"Courage is not the absence of fear, but rather the assessment that something else is more important than fear.",a:"Franklin D. Roosevelt",s:"attributed"},
+  {t:"What you do makes a difference, and you have to decide what kind of difference you want to make.",a:"Jane Goodall",s:""},
+  {t:"Little by little, one travels far.",a:"Proverb",s:""}
+];
+
+/* ---- quote panel: local pool paints instantly; the ↻ button tries the
+   internet first (via the Apps Script backend, which has no CORS limits)
+   and quietly falls back to the pool if that isn't available. ---- */
+let qBusy=false;
+function pickLocal(){
+  const last=LS.get("gh.lastQ",-1);
+  let i=Math.floor(Math.random()*QUOTES.length);
+  if(QUOTES.length>1 && i===last) i=(i+1+Math.floor(Math.random()*(QUOTES.length-1)))%QUOTES.length;
+  LS.set("gh.lastQ",i);
+  return QUOTES[i];
+}
+function paintQuote(q){
+  const body=$("#qBody");
+  body.classList.add("swap");
+  setTimeout(()=>{
+    $("#qText").textContent=q.t;
+    $("#qWho").innerHTML = esc(q.a) + (q.s?` <span class="src">· ${esc(q.s)}</span>`:"");
+    body.classList.remove("swap");
+  },180);
+}
+async function liveQuote(){
+  if(!S.url) return null;
+  const ctl=new AbortController();
+  const timer=setTimeout(()=>ctl.abort(),3000);
+  try{
+    const r=await fetch(S.url+(S.url.indexOf("?")<0?"?":"&")+"action=quote&_="+Date.now(),
+      {method:"GET",redirect:"follow",signal:ctl.signal});
+    if(!r.ok) return null;
+    const j=await r.json();
+    if(j && j.ok && j.quote && j.quote.t) return {t:j.quote.t,a:j.quote.a||"Unknown",s:"from the web"};
+  }catch(e){ /* offline, blocked, or backend not redeployed — fall back */ }
+  finally{ clearTimeout(timer); }
+  return null;
+}
+async function newQuote(tryLive){
+  if(qBusy) return;
+  qBusy=true;
+  const btn=$("#qRefresh");
+  btn.classList.add("spin");
+  setTimeout(()=>btn.classList.remove("spin"),600);
+  // Always paint from the built-in pool first, so the button never feels
+  // slow — even on a bad connection or an un-redeployed backend.
+  paintQuote(pickLocal());
+  qBusy=false;
+  if(!tryLive) return;
+  const live=await liveQuote();     // may take a second; swaps in if it lands
+  if(live) paintQuote(live);
+}
+$("#qRefresh").addEventListener("click",()=>newQuote(true));
+
 /* ============================================================
    7. Boot
    ============================================================ */
 (function boot(){
+  newQuote(false);
   const p=new URLSearchParams(location.search);
   if(p.get("url")){ S.url=p.get("url"); LS.set("gh.url",S.url); }
   render();

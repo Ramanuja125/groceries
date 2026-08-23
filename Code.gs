@@ -32,6 +32,9 @@ var TODO_COLS    = ['id','task','priority','due','notes','status','addedAt','don
 /** Read — open to anyone, so the site is viewable without signing in. */
 function doGet(e) {
   try {
+    if (e && e.parameter && e.parameter.action === 'quote') {
+      return json_({ ok: true, quote: fetchQuote_() });
+    }
     var ss = getSS_();
     return json_({
       ok: true,
@@ -212,6 +215,37 @@ function clearWhere_(ss, name, cols, field, value) {
   return n;
 }
 
+
+
+/* ==================================================================
+   Live quote — fetched server-side, so no CORS limits apply.
+   Returns null if every source is unreachable; the site then falls
+   back to its own built-in collection.
+   ================================================================== */
+function fetchQuote_() {
+  var sources = [
+    { url: 'https://zenquotes.io/api/random',
+      parse: function (t) { var j = JSON.parse(t); return { t: j[0].q, a: j[0].a }; } },
+    { url: 'https://api.quotable.io/random?minLength=110&maxLength=320',
+      parse: function (t) { var j = JSON.parse(t); return { t: j.content, a: j.author }; } }
+  ];
+  for (var i = 0; i < sources.length; i++) {
+    try {
+      var res = UrlFetchApp.fetch(sources[i].url, {
+        muteHttpExceptions: true,
+        followRedirects: true,
+        validateHttpsCertificates: true
+      });
+      if (res.getResponseCode() === 200) {
+        var q = sources[i].parse(res.getContentText());
+        if (q && q.t && String(q.t).trim()) {
+          return { t: String(q.t).trim(), a: String(q.a || 'Unknown').trim() };
+        }
+      }
+    } catch (err) { /* try the next source */ }
+  }
+  return null;
+}
 
 /* ==================================================================
    Optional: a menu inside the spreadsheet

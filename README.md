@@ -3,6 +3,9 @@
 Personal grocery list + to-do tracker. Single HTML file, no build step, no
 dependencies. Data lives in a Google Sheet via an Apps Script web app.
 
+Includes a quote panel that changes on every visit — served from a built-in
+collection, with an optional live-from-the-web source through the backend.
+
 ## Repo layout
 
 ```

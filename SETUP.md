@@ -116,6 +116,16 @@ from then on.
 **Fields per item** — name, store, quantity + unit, category, priority
 (Urgent / Normal / Whenever), notes, and purchase date.
 
+**Quote panel** — a passage sits above the list and changes every time you open
+the page. The ↻ button gives you another one instantly.
+
+It draws from ~50 quotes built into the file, so it works offline and never
+lags. If you paste the updated `Code.gs` into Apps Script and redeploy, ↻ will
+*also* try to pull a fresh quote off the internet first — fetched server-side by
+Apps Script, so no CORS trouble — and fall back to the built-in set the moment
+anything is slow or unreachable. That redeploy is entirely optional; skip it and
+the panel still works exactly as described.
+
 Small things worth knowing:
 
 - Press **Enter** in the item box to add and keep typing.
