@@ -9,8 +9,8 @@
  */
 
 /* ====== 1. CHANGE THESE TO MATCH THE WEBSITE ====== */
-var AUTH_USER = 'ram';
-var AUTH_PASS = 'ram123';
+var AUTH_USER = 'ramanuja';
+var AUTH_PASS = 'Pass@123';
 
 /* Leave blank when this script lives inside the spreadsheet
    (Extensions > Apps Script). Otherwise paste the spreadsheet ID —

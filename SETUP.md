@@ -17,8 +17,8 @@ own — nothing to paste.
 
 | | |
 |---|---|
-| Username | `ram` |
-| Password | `ram123` |
+| Username | `ramanuja` |
+| Password | `Pass@123` |
 
 Anyone who opens the page can **view** everything. Only a signed-in session can
 add, edit, check off or delete.
@@ -29,8 +29,8 @@ add, edit, check off or delete.
 - `Code.gs` → lines 2–3
 
 ```js
-const AUTH_USER = "ram";
-const AUTH_PASS = "ram123";
+const AUTH_USER = "ramanuja";
+const AUTH_PASS = "Pass@123";
 ```
 
 They must match, or writes will be rejected by the sheet.

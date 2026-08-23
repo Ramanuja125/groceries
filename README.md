@@ -33,8 +33,8 @@ If you'd rather keep the repo root tidy, put `index.html` and `.nojekyll` in a
 Both live near the top of the `<script>` block in `index.html`:
 
 ```js
-const AUTH_USER = "ram";
-const AUTH_PASS = "ram123";
+const AUTH_USER = "ramanuja";
+const AUTH_PASS = "Pass@123";
 const DEFAULT_SCRIPT_URL = "https://script.google.com/macros/s/.../exec";
 ```
 
