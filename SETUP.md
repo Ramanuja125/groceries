@@ -98,6 +98,18 @@ grocery-hub.html?url=https://script.google.com/macros/s/AKfycb.../exec
 
 ## Using it
 
+**Adding** — one line. Type the item and press Enter; that's the whole flow.
+Quantity is read off the front of what you type (`2 lb toor dal` → 2 lb, "toor
+dal") and the category is guessed from the name, both shown in a preview under
+the box before you commit. The store stays on whatever you last picked, so a run
+of items from one shop is just type-Enter-type-Enter. **More details** opens
+quantity, unit, category, priority and notes if you want to set them by hand —
+category there has an **Auto** option, which is the default.
+
+**Filtering** — the store chips under the search box are the main control: tap
+one to narrow to that shop, tap it again to clear. Category and priority live
+behind **Filters**, collapsed, with a badge when any are active.
+
 **Shopping list** — the main view. Items are grouped by store, with urgent ones
 pinned to the top of each group and marked with a red edge. Tick the checkbox
 when you buy something; it moves to History stamped with today's date.

@@ -29,7 +29,7 @@
     --border:#32322c; --border-strong:#45453d;
     --text:#eceae4; --dim:#a09a8c; --faint:#736d60;
     --accent:#69ad7c; --accent-ink:#8fc79f; --accent-soft:#1e2f23;
-    --amber:#d69f4e; --amber-soft:#33271438;
+    --amber:#d69f4e; --amber-soft:#332714;
     --red:#e0796a; --red-soft:#3a201c;
     --blue:#78a9d4; --blue-soft:#1a2836;
     --shadow-sm:0 1px 2px rgba(0,0,0,.4);
@@ -53,22 +53,20 @@
 html{-webkit-text-size-adjust:100%}
 body{
   background:var(--bg); color:var(--text); font-family:var(--sans);
-  font-size:15px; line-height:1.5; -webkit-font-smoothing:antialiased;
-  min-height:100vh;
+  font-size:15px; line-height:1.5; -webkit-font-smoothing:antialiased; min-height:100vh;
 }
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer;background:none;border:none}
 a{color:var(--accent-ink)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-/* ---------- layout ---------- */
 .wrap{max-width:1080px;margin:0 auto;padding:0 20px 96px}
 @media (max-width:600px){ .wrap{padding:0 12px 96px} }
 
 /* ---------- topbar ---------- */
 .topbar{
   position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 88%,transparent);
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border);
 }
 .topbar-in{max-width:1080px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:12px}
 @media (max-width:600px){ .topbar-in{padding:10px 12px;gap:8px} }
@@ -77,15 +75,13 @@ a{color:var(--accent-ink)}
 .mark svg{width:100%;height:100%;display:block}
 .brand h1{font-size:16px;font-weight:650;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .brand .sub{font-size:11.5px;color:var(--faint);white-space:nowrap}
-@media (max-width:520px){ .brand .sub{display:none} }
+@media (max-width:560px){ .brand .sub{display:none} }
 
 .iconbtn{
   width:34px;height:34px;border-radius:9px;display:grid;place-items:center;flex:none;
-  border:1px solid var(--border);background:var(--surface);color:var(--dim);
-  transition:.15s;font-size:15px;
+  border:1px solid var(--border);background:var(--surface);color:var(--dim);transition:.15s;font-size:15px;
 }
 .iconbtn:hover{background:var(--surface-2);color:var(--text);border-color:var(--border-strong)}
-
 .btn{
   display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:9px;
   border:1px solid var(--border);background:var(--surface);font-size:13.5px;font-weight:550;
@@ -96,10 +92,8 @@ a{color:var(--accent-ink)}
 .btn.primary:hover{filter:brightness(1.07)}
 .btn.ghost{border-color:transparent;background:transparent;color:var(--dim)}
 .btn.ghost:hover{background:var(--surface-2);color:var(--text)}
-.btn.danger{color:var(--red);border-color:color-mix(in srgb,var(--red) 30%,var(--border))}
-.btn.danger:hover{background:var(--red-soft)}
 .btn:disabled{opacity:.45;cursor:not-allowed}
-.btn.sm{padding:5px 10px;font-size:12.5px;border-radius:7px}
+.btn.sm{padding:6px 11px;font-size:12.5px;border-radius:8px}
 
 .syncpill{
   display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:99px;
@@ -109,23 +103,19 @@ a{color:var(--accent-ink)}
 .syncpill[data-s=ok] .dot{background:var(--accent)}
 .syncpill[data-s=busy] .dot{background:var(--amber);animation:pulse 1s infinite}
 .syncpill[data-s=err] .dot{background:var(--red)}
-.syncpill[data-s=off] .dot{background:var(--faint)}
 @keyframes pulse{50%{opacity:.25}}
-@media (max-width:760px){ .syncpill .lbl{display:none} .syncpill{padding:6px} }
+@media (max-width:820px){ .syncpill .lbl{display:none} .syncpill{padding:6px} }
 
 /* ---------- tabs ---------- */
 .tabs{display:flex;gap:4px;padding:16px 0 0;overflow-x:auto;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
 .tab{
   padding:9px 15px;border-radius:10px;font-size:14px;font-weight:550;color:var(--dim);
-  display:inline-flex;align-items:center;gap:8px;white-space:nowrap;transition:.15s;
+  display:inline-flex;align-items:center;gap:8px;white-space:nowrap;transition:.15s;border:1px solid transparent;
 }
 .tab:hover{background:var(--surface-2);color:var(--text)}
-.tab[aria-selected=true]{background:var(--surface);color:var(--text);box-shadow:var(--shadow-sm);border:1px solid var(--border)}
-.tab .count{
-  font-size:11px;font-weight:650;padding:1px 6px;border-radius:99px;
-  background:var(--surface-3);color:var(--dim);font-variant-numeric:tabular-nums;
-}
+.tab[aria-selected=true]{background:var(--surface);color:var(--text);box-shadow:var(--shadow-sm);border-color:var(--border)}
+.tab .count{font-size:11px;font-weight:650;padding:1px 6px;border-radius:99px;background:var(--surface-3);color:var(--dim);font-variant-numeric:tabular-nums}
 .tab[aria-selected=true] .count{background:var(--accent-soft);color:var(--accent-ink)}
 
 /* ---------- quote ---------- */
@@ -134,116 +124,143 @@ a{color:var(--accent-ink)}
   background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);
   box-shadow:var(--shadow-sm);overflow:hidden;
 }
-.quote::before{
-  content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
-  background:linear-gradient(180deg,var(--accent),color-mix(in srgb,var(--accent) 45%,var(--amber)));
-}
-.qmark{
-  position:absolute;left:14px;top:2px;font-size:52px;line-height:1;color:var(--accent);
-  opacity:.16;font-family:Georgia,"Times New Roman",serif;pointer-events:none;user-select:none;
-}
-.qbody{position:relative;min-height:74px;display:flex;flex-direction:column;justify-content:center;transition:opacity .25s ease, transform .25s ease}
+.quote::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,var(--accent),color-mix(in srgb,var(--accent) 45%,var(--amber)))}
+.qmark{position:absolute;left:14px;top:2px;font-size:52px;line-height:1;color:var(--accent);opacity:.16;
+  font-family:Georgia,"Times New Roman",serif;pointer-events:none;user-select:none}
+.qbody{position:relative;min-height:74px;display:flex;flex-direction:column;justify-content:center;
+  transition:opacity .25s ease, transform .25s ease}
 .qbody.swap{opacity:0;transform:translateY(4px)}
-.quote p{
-  font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
-  font-size:15.5px;line-height:1.68;font-style:italic;color:var(--text);
-  max-width:66ch;text-wrap:pretty;
-}
-.quote .who{
-  margin-top:11px;font-size:11px;font-weight:650;letter-spacing:.09em;
-  text-transform:uppercase;color:var(--faint);font-style:normal;
-}
+.quote p{font-family:Georgia,"Iowan Old Style","Times New Roman",serif;font-size:15.5px;line-height:1.68;
+  font-style:italic;color:var(--text);max-width:66ch;text-wrap:pretty}
+.quote .who{margin-top:11px;font-size:11px;font-weight:650;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--faint);font-style:normal}
 .quote .who .src{text-transform:none;letter-spacing:.02em;font-weight:500;opacity:.85}
-.qre{
-  position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:8px;
-  display:grid;place-items:center;color:var(--dim);font-size:16px;transition:.15s;
-  border:1px solid var(--border);background:var(--surface-2);
-}
-.qre:hover{background:var(--surface-2);color:var(--accent-ink);border-color:var(--border)}
-.qre:active{transform:rotate(180deg)}
+.qre{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;
+  color:var(--dim);font-size:16px;transition:.15s;border:1px solid var(--border);background:var(--surface-2)}
+.qre:hover{color:var(--accent-ink);border-color:var(--border-strong)}
 .qre.spin{animation:spin .6s ease}
 @keyframes spin{to{transform:rotate(360deg)}}
 @media (max-width:600px){ .quote{padding:18px 48px 18px 22px} .quote p{font-size:14.5px} }
 
+/* ---------- add bar ---------- */
+.addbar{
+  margin-top:18px;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r-lg);box-shadow:var(--shadow-sm);overflow:hidden;
+}
+.addmain{display:flex;align-items:center;gap:8px;padding:10px 12px}
+.addmain .plus{font-size:19px;color:var(--accent);flex:none;width:22px;text-align:center;font-weight:400;line-height:1}
+.addmain input.big{
+  flex:1;min-width:0;border:none;background:none;outline:none;font-size:15.5px;padding:8px 0;font-weight:500;
+}
+.addmain input.big::placeholder{color:var(--faint);font-weight:400}
+.storesel{
+  height:36px;border:1px solid var(--border);background:var(--surface-2);border-radius:9px;padding:0 8px;
+  font-size:13px;font-weight:550;outline:none;max-width:170px;flex:none;
+}
+.storesel:focus{border-color:var(--accent)}
+@media (max-width:640px){
+  .addmain{flex-wrap:wrap;padding:12px}
+  .addmain .plus{display:none}
+  .addmain input.big{flex:1 1 100%;padding:4px 0}
+  .storesel{flex:1;max-width:none}
+  .apreview,.addfoot,.details{padding-left:12px}
+}
+.csrow{padding:0 12px 10px 44px}
+@media (max-width:640px){ .csrow{padding-left:12px} }
+.apreview{
+  padding:0 12px 0 44px;font-size:12.5px;color:var(--dim);max-height:0;overflow:hidden;
+  transition:max-height .18s ease, padding .18s ease;
+}
+.apreview.on{max-height:40px;padding-bottom:9px}
+.apreview b{color:var(--text);font-family:var(--mono);font-size:11.5px;background:var(--surface-3);
+  padding:1px 5px;border-radius:4px;font-weight:600}
+.apreview .pvc{color:var(--faint)}
+.addfoot{display:flex;align-items:center;gap:10px;padding:0 12px 10px 44px}
+.detailtoggle{font-size:12.5px;color:var(--dim);font-weight:550;display:inline-flex;align-items:center;gap:5px}
+.detailtoggle:hover{color:var(--accent-ink)}
+.tip{font-size:11.5px;color:var(--faint)}
+@media (max-width:640px){ .tip{display:none} }
+.details{display:none;gap:8px;padding:2px 12px 12px 44px;grid-template-columns:repeat(4,1fr)}
+.details.open{display:grid}
+.details .wide{grid-column:span 4}
+@media (max-width:820px){ .details{grid-template-columns:1fr 1fr} .details .wide{grid-column:span 2} }
+@media (max-width:600px){ .details{grid-template-columns:1fr} .details .wide{grid-column:span 1} }
+
+.f{display:flex;flex-direction:column;min-width:0}
+.lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);font-weight:650;margin-bottom:4px}
+input.fld,select.fld,textarea.fld{
+  height:36px;border:1px solid var(--border);background:var(--surface);border-radius:9px;padding:0 9px;
+  font-size:13.5px;outline:none;transition:.15s;width:100%;
+}
+textarea.fld{height:auto;padding:8px 9px;resize:vertical;min-height:60px;line-height:1.45}
+input.fld:focus,select.fld:focus,textarea.fld:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+
+/* ---------- toolbar / filters ---------- */
+.toolbar{display:flex;gap:8px;align-items:center;margin:16px 0 0}
+.search{
+  flex:1;min-width:0;display:flex;align-items:center;gap:8px;background:var(--surface);
+  border:1px solid var(--border);border-radius:10px;padding:0 12px;height:40px;
+}
+.search:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.search input{border:none;background:none;outline:none;flex:1;min-width:0;font-size:14px}
+.search .ic{color:var(--faint);font-size:13px;flex:none}
+.search .clr{width:22px;height:22px;border-radius:50%;display:none;place-items:center;color:var(--faint);
+  background:var(--surface-3);font-size:12px;flex:none}
+.search.has .clr{display:grid}
+.search .clr:hover{color:var(--text)}
+.fbtn{height:40px;flex:none}
+.fbtn .n{font-size:10.5px;font-weight:700;background:var(--accent);color:#fff;border-radius:99px;padding:1px 6px;margin-left:2px}
+
+.chips{display:flex;gap:6px;margin-top:10px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.chips::-webkit-scrollbar{display:none}
+.schip{
+  display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:99px;white-space:nowrap;
+  border:1px solid var(--border);background:var(--surface);font-size:12.5px;font-weight:600;color:var(--dim);
+  transition:.14s;flex:none;
+}
+.schip:hover{border-color:var(--border-strong);color:var(--text)}
+.schip .n{font-size:11px;font-weight:700;opacity:.65;font-variant-numeric:tabular-nums}
+.schip[aria-pressed=true]{background:var(--text);color:var(--bg);border-color:var(--text)}
+.schip[aria-pressed=true] .n{opacity:.7}
+
+.morefilters{display:none;gap:8px;margin-top:10px;align-items:flex-end;flex-wrap:wrap}
+.morefilters.open{display:flex}
+.morefilters .f{flex:1;min-width:150px}
+
 /* ---------- stats ---------- */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0 0}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0 0}
 @media (max-width:640px){ .stats{grid-template-columns:repeat(2,1fr)} }
 .stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:13px 15px}
 .stat .k{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);font-weight:600}
 .stat .v{font-size:24px;font-weight:680;letter-spacing:-.02em;margin-top:3px;font-variant-numeric:tabular-nums}
 .stat .v small{font-size:13px;font-weight:500;color:var(--dim);letter-spacing:0}
 
-/* ---------- toolbar ---------- */
-.toolbar{
-  display:flex;gap:8px;align-items:center;margin:18px 0 0;flex-wrap:wrap;
-}
-.search{
-  flex:1 1 200px;min-width:160px;display:flex;align-items:center;gap:8px;
-  background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:0 12px;height:38px;
-}
-.search:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
-.search input{border:none;background:none;outline:none;flex:1;min-width:0;font-size:14px}
-.search .ic{color:var(--faint);font-size:13px}
-select.filt,input.fld,select.fld,textarea.fld{
-  height:38px;border:1px solid var(--border);background:var(--surface);border-radius:10px;
-  padding:0 10px;font-size:13.5px;outline:none;transition:.15s;max-width:100%;
-}
-textarea.fld{height:auto;padding:9px 10px;resize:vertical;min-height:64px;line-height:1.45}
-select.filt:focus,input.fld:focus,select.fld:focus,textarea.fld:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
-select.filt{color:var(--dim);font-weight:550}
-select.filt[data-active=true]{color:var(--accent-ink);border-color:color-mix(in srgb,var(--accent) 40%,var(--border));background:var(--accent-soft)}
-
-/* ---------- add panel ---------- */
-.addpanel{
-  background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);
-  padding:16px;margin-top:14px;box-shadow:var(--shadow-sm);
-}
-.addgrid{display:grid;grid-template-columns:2fr 1.2fr .7fr .8fr auto;gap:8px}
-@media (max-width:820px){ .addgrid{grid-template-columns:1fr 1fr} }
-@media (max-width:520px){ .addgrid{grid-template-columns:1fr} }
-.addmore{display:none;grid-template-columns:1fr 1fr 2fr;gap:8px;margin-top:8px}
-.addmore.open{display:grid}
-@media (max-width:720px){ .addmore{grid-template-columns:1fr} }
-.lbl{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);font-weight:600;margin-bottom:4px;display:block}
-.f{display:flex;flex-direction:column;min-width:0}
-.f .fld,.f select{width:100%}
-.addfoot{display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}
-
 /* ---------- groups & rows ---------- */
-.group{margin-top:22px}
+.group{margin-top:20px}
 .ghead{display:flex;align-items:center;gap:10px;margin-bottom:8px;padding:0 2px}
 .ghead .swatch{width:10px;height:10px;border-radius:3px;flex:none}
 .ghead .name{font-size:13.5px;font-weight:650;letter-spacing:-.01em}
 .ghead .n{font-size:11.5px;color:var(--faint);font-variant-numeric:tabular-nums}
 .ghead .line{flex:1;height:1px;background:var(--border)}
-
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
-.row{
-  display:flex;align-items:flex-start;gap:12px;padding:12px 14px;
-  border-bottom:1px solid var(--border);transition:background .12s;
-}
+.row{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-bottom:1px solid var(--border);transition:background .12s}
 .row:last-child{border-bottom:none}
 .row:hover{background:var(--surface-2)}
 .row.done .main .nm{text-decoration:line-through;color:var(--faint)}
 .row.urgent{box-shadow:inset 3px 0 0 var(--red)}
-
 .chk{
   width:20px;height:20px;border-radius:6px;border:1.5px solid var(--border-strong);flex:none;
-  display:grid;place-items:center;margin-top:1px;transition:.15s;color:transparent;font-size:11px;
-  background:var(--surface);
+  display:grid;place-items:center;margin-top:1px;transition:.15s;color:transparent;font-size:11px;background:var(--surface);
 }
 .chk:hover:not(:disabled){border-color:var(--accent)}
 .chk[aria-checked=true]{background:var(--accent);border-color:var(--accent);color:#fff}
 .chk:disabled{opacity:.5;cursor:default}
-
 .main{flex:1;min-width:0}
 .nm{font-size:14.5px;font-weight:550;letter-spacing:-.005em;word-break:break-word}
 .meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center}
-.chip{
-  display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:550;
-  padding:2.5px 8px;border-radius:99px;background:var(--surface-2);color:var(--dim);
-  border:1px solid var(--border);white-space:nowrap;
-}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:550;padding:2.5px 8px;
+  border-radius:99px;background:var(--surface-2);color:var(--dim);border:1px solid var(--border);white-space:nowrap}
 .chip.qty{font-family:var(--mono);font-size:11px;font-weight:600;background:var(--surface-3);color:var(--text)}
 .chip.p-urgent{background:var(--red-soft);color:var(--red);border-color:color-mix(in srgb,var(--red) 25%,transparent)}
 .chip.p-whenever{opacity:.75}
@@ -252,32 +269,22 @@ select.filt[data-active=true]{color:var(--accent-ink);border-color:color-mix(in 
 .rowacts{display:flex;gap:2px;flex:none;opacity:0;transition:.15s}
 .row:hover .rowacts,.row:focus-within .rowacts{opacity:1}
 @media (hover:none){ .rowacts{opacity:1} }
-.mini{
-  width:28px;height:28px;border-radius:7px;display:grid;place-items:center;color:var(--faint);font-size:13px;transition:.12s;
-}
+.mini{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;color:var(--faint);font-size:13px;transition:.12s}
 .mini:hover{background:var(--surface-3);color:var(--text)}
 .mini.del:hover{background:var(--red-soft);color:var(--red)}
 
-/* ---------- empty ---------- */
-.empty{
-  text-align:center;padding:56px 24px;color:var(--dim);
-  background:var(--surface);border:1px dashed var(--border-strong);border-radius:var(--r-lg);margin-top:18px;
-}
+.empty{text-align:center;padding:52px 24px;color:var(--dim);background:var(--surface);
+  border:1px dashed var(--border-strong);border-radius:var(--r-lg);margin-top:18px}
 .empty .big{font-size:32px;margin-bottom:10px;opacity:.6}
 .empty h3{font-size:15px;font-weight:600;color:var(--text);margin-bottom:5px}
-.empty p{font-size:13.5px;max-width:380px;margin:0 auto;line-height:1.55}
+.empty p{font-size:13.5px;max-width:400px;margin:0 auto;line-height:1.55}
 
 /* ---------- modal ---------- */
-.scrim{
-  position:fixed;inset:0;background:rgba(20,18,14,.5);backdrop-filter:blur(3px);
-  display:none;place-items:center;padding:20px;z-index:100;
-}
+.scrim{position:fixed;inset:0;background:rgba(20,18,14,.5);backdrop-filter:blur(3px);
+  display:none;place-items:center;padding:20px;z-index:100}
 .scrim.open{display:grid}
-.modal{
-  background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);
-  box-shadow:var(--shadow-lg);width:100%;max-width:440px;padding:24px;
-  max-height:calc(100vh - 40px);overflow:auto;
-}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-lg);width:100%;max-width:440px;padding:24px;max-height:calc(100vh - 40px);overflow:auto}
 .modal h2{font-size:17px;font-weight:650;letter-spacing:-.015em;margin-bottom:5px}
 .modal .desc{font-size:13px;color:var(--dim);line-height:1.5;margin-bottom:18px}
 .modal .f{margin-bottom:12px}
@@ -287,24 +294,19 @@ select.filt[data-active=true]{color:var(--accent-ink);border-color:color-mix(in 
 .hint{font-size:11.5px;color:var(--faint);margin-top:5px;line-height:1.5}
 code{font-family:var(--mono);font-size:.9em;background:var(--surface-3);padding:1px 5px;border-radius:4px}
 
-/* ---------- toast ---------- */
-.toasts{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:200;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none;width:calc(100% - 32px);max-width:420px}
-.toast{
-  background:var(--text);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:13.5px;
-  font-weight:550;box-shadow:var(--shadow-lg);animation:pop .2s ease-out;max-width:100%;
-}
+.toasts{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:200;display:flex;
+  flex-direction:column;gap:8px;align-items:center;pointer-events:none;width:calc(100% - 32px);max-width:420px}
+.toast{background:var(--text);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:13.5px;
+  font-weight:550;box-shadow:var(--shadow-lg);animation:pop .2s ease-out;max-width:100%}
 .toast.bad{background:var(--red);color:#fff}
 @keyframes pop{from{opacity:0;transform:translateY(8px)}}
 
-.readonly-banner{
-  display:flex;align-items:center;gap:10px;margin-top:16px;padding:10px 14px;
+.readonly-banner{display:flex;align-items:center;gap:10px;margin-top:16px;padding:10px 14px;
   background:var(--blue-soft);border:1px solid color-mix(in srgb,var(--blue) 25%,transparent);
-  border-radius:var(--r);font-size:13px;color:var(--text);
-}
+  border-radius:var(--r);font-size:13px;color:var(--text)}
 .readonly-banner b{font-weight:650}
 .readonly-banner .btn{margin-left:auto}
 .hide{display:none !important}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 </style>
 </head>
 <body>
@@ -315,11 +317,11 @@ code{font-family:var(--mono);font-size:.9em;background:var(--surface-3);padding:
       <div class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#63b37a"/><stop offset=".55" stop-color="#3d7a4d"/><stop offset="1" stop-color="#2b5f46"/></linearGradient></defs><rect width="64" height="64" rx="15" fill="url(#g)"/><path d="M23 27v-4a9 9 0 0 1 18 0v4" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" opacity=".92"/><path d="M14.5 26.5h35l-3.3 22a4.2 4.2 0 0 1-4.2 3.6H22a4.2 4.2 0 0 1-4.2-3.6z" fill="#fff"/><path d="M25 38.4l5 5 9.5-9.6" fill="none" stroke="#2f6b48" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div>
         <h1>Ram's Grocery Hub</h1>
-        <div class="sub" id="brandSub">Groceries &amp; to-dos, synced to Google Sheets</div>
+        <div class="sub">Groceries &amp; to-dos, synced to Google Sheets</div>
       </div>
     </div>
     <button class="syncpill" id="syncPill" data-s="off" title="Sync status — click to refresh">
-      <span class="dot"></span><span class="lbl" id="syncLbl">Not connected</span>
+      <span class="dot"></span><span class="lbl" id="syncLbl">Local only</span>
     </button>
     <button class="iconbtn" id="themeBtn" title="Toggle theme">◐</button>
     <button class="iconbtn" id="cfgBtn" title="Settings">⚙</button>
@@ -336,10 +338,7 @@ code{font-family:var(--mono);font-size:.9em;background:var(--surface-3);padding:
 
   <section class="quote" id="quoteCard" aria-live="polite">
     <span class="qmark" aria-hidden="true">&ldquo;</span>
-    <div class="qbody" id="qBody">
-      <p id="qText"></p>
-      <div class="who" id="qWho"></div>
-    </div>
+    <div class="qbody" id="qBody"><p id="qText"></p><div class="who" id="qWho"></div></div>
     <button class="qre" id="qRefresh" title="Another one" aria-label="Show another quote">&#8635;</button>
   </section>
 
@@ -351,7 +350,6 @@ code{font-family:var(--mono);font-size:.9em;background:var(--surface-3);padding:
   <div id="content"></div>
 </div>
 
-<!-- login modal -->
 <div class="scrim" id="loginScrim">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
     <h2 id="loginTitle">Sign in to edit</h2>
@@ -366,7 +364,6 @@ code{font-family:var(--mono);font-size:.9em;background:var(--surface-3);padding:
   </div>
 </div>
 
-<!-- settings modal -->
 <div class="scrim" id="cfgScrim">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="cfgTitle">
     <h2 id="cfgTitle">Google Sheets connection</h2>
@@ -374,7 +371,7 @@ code{font-family:var(--mono);font-size:.9em;background:var(--surface-3);padding:
     <div class="f">
       <label class="lbl" for="cfgUrl">Web app URL</label>
       <input class="fld" id="cfgUrl" placeholder="https://script.google.com/macros/s/AKfy.../exec" spellcheck="false">
-      <div class="hint">Stored only in this browser. See <code>SETUP.md</code> for the 5-minute setup.</div>
+      <div class="hint">Stored only in this browser, and overrides the one built into the file.</div>
     </div>
     <div class="err" id="cfgErr"></div>
     <div class="foot">
@@ -385,11 +382,10 @@ code{font-family:var(--mono);font-size:.9em;background:var(--surface-3);padding:
   </div>
 </div>
 
-<!-- edit modal -->
 <div class="scrim" id="editScrim">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="editTitle">
     <h2 id="editTitle">Edit item</h2>
-    <p class="desc" id="editDesc">Update the details and save.</p>
+    <p class="desc" id="editDesc">Change any detail, then save.</p>
     <div id="editBody"></div>
     <div class="foot">
       <button class="btn ghost" data-close>Cancel</button>
@@ -405,16 +401,15 @@ code{font-family:var(--mono);font-size:.9em;background:var(--surface-3);padding:
 "use strict";
 
 /* ============================================================
-   1. CONFIG — change these two lines to change the login
+   1. CONFIG — change these to change the login
    ============================================================ */
 const AUTH_USER = "ramanuja";
 const AUTH_PASS = "Pass@123";
 /* The same pair must be set as AUTH_USER / AUTH_PASS in Code.gs */
 
-/* The Apps Script /exec URL. Baked in here so every device — this file on
-   your disk, the GitHub Pages copy, your phone — connects with no setup.
-   To change it later: replace the string below, or use the ⚙ dialog on a
-   single device (that overrides this value for that browser only). */
+/* The Apps Script /exec URL, baked in so every device connects with no setup.
+   To change it later: replace the string below, or use the ⚙ dialog on one
+   device (that overrides this value for that browser only). */
 const DEFAULT_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzUgb3QkoSeBHvsE-St0_SRcYD3QYbBWfxvFSQp3omngfdu4pswtXFlomv4iuaVEfIn/exec";
 
 const STORES = [
@@ -428,31 +423,36 @@ const STORES = [
   {name:"Other",          hue:44,  icon:"📍"}
 ];
 const CATS = [
-  {name:"Produce",         icon:"🥦"},
-  {name:"Dairy & Eggs",    icon:"🥛"},
-  {name:"Meat & Seafood",  icon:"🍗"},
-  {name:"Frozen",          icon:"🧊"},
-  {name:"Pantry & Dry",    icon:"🍚"},
-  {name:"Spices & Masala", icon:"🌿"},
-  {name:"Snacks",          icon:"🍪"},
-  {name:"Beverages",       icon:"🧃"},
-  {name:"Bakery",          icon:"🍞"},
-  {name:"Household",       icon:"🧻"},
-  {name:"Personal Care",   icon:"🧴"},
-  {name:"Other",           icon:"📦"}
+  {name:"Produce",icon:"🥦"},{name:"Dairy & Eggs",icon:"🥛"},{name:"Meat & Seafood",icon:"🍗"},
+  {name:"Frozen",icon:"🧊"},{name:"Pantry & Dry",icon:"🍚"},{name:"Spices & Masala",icon:"🌿"},
+  {name:"Snacks",icon:"🍪"},{name:"Beverages",icon:"🧃"},{name:"Bakery",icon:"🍞"},
+  {name:"Household",icon:"🧻"},{name:"Personal Care",icon:"🧴"},{name:"Other",icon:"📦"}
 ];
 const UNITS = ["ct","lb","oz","kg","g","gal","qt","L","ml","pack","box","bag","bunch","dozen","jar","can","bottle"];
 const PRIOS = ["Urgent","Normal","Whenever"];
 
+/* Keywords used to guess a category so you rarely have to pick one. */
+const CAT_HINTS = [
+  ["Produce","onion,tomato,potato,banana,apple,spinach,palak,methi,cilantro,coriander,curry leaf,ginger,garlic,chilli,chili,lemon,lime,carrot,cucumber,okra,bhindi,brinjal,eggplant,cabbage,cauliflower,gobi,mango,grapes,berries,avocado,lettuce,mushroom,pepper,corn,beans,peas,drumstick,bottle gourd,lauki,karela,mint,pudina,salad,orange,papaya,coconut"],
+  ["Dairy & Eggs","milk,paneer,curd,yogurt,yoghurt,dahi,butter,ghee,cheese,cream,egg,eggs,buttermilk,lassi,kefir,sour cream"],
+  ["Meat & Seafood","chicken,mutton,lamb,beef,pork,fish,salmon,shrimp,prawn,turkey,bacon,sausage,tilapia,crab"],
+  ["Frozen","frozen,ice cream,icecream,peas frozen,samosa,paratha,naan frozen,popsicle,kulfi"],
+  ["Pantry & Dry","rice,dal,daal,lentil,toor,moong,chana,urad,masoor,atta,flour,maida,besan,sugar,salt,oil,poha,rava,sooji,semolina,pasta,noodle,quinoa,oats,cereal,honey,vinegar,soy sauce,ketchup,peanut butter,jam,canned,beans dry,rajma,chickpea,idli,dosa,batter,papad,pickle,achar,tamarind,jaggery,gur"],
+  ["Spices & Masala","masala,turmeric,haldi,cumin,jeera,mustard seed,rai,coriander powder,dhania,garam masala,chilli powder,asafoetida,hing,cardamom,elaichi,clove,laung,cinnamon,dalchini,bay leaf,tej patta,fenugreek,kasuri,saffron,pepper corn,spice"],
+  ["Snacks","chips,namkeen,biscuit,cookie,cracker,nuts,almond,cashew,pista,walnut,raisin,dry fruit,chocolate,candy,popcorn,bhujia,sev,mixture,granola bar"],
+  ["Beverages","water,juice,soda,coke,pepsi,tea,chai,coffee,beer,wine,energy drink,coconut water,squash,thums up"],
+  ["Bakery","bread,bun,bagel,croissant,cake,muffin,pastry,pita,tortilla,roti,naan"],
+  ["Household","paper towel,tissue,toilet paper,detergent,soap dish,dish soap,cleaner,trash bag,garbage bag,foil,ziploc,sponge,bleach,laundry,fabric softener,bulb,battery,broom,mop"],
+  ["Personal Care","shampoo,conditioner,toothpaste,toothbrush,soap,body wash,lotion,deodorant,razor,shaving,sanitary,pad,diaper,sunscreen,face wash,moisturizer,hair oil"]
+].map(([name,words])=>({name, words:words.split(",").map(w=>w.trim()).filter(Boolean)}));
+
 /* ============================================================
-   2. State + tiny helpers
+   2. State + helpers
    ============================================================ */
 const LS = {
   get(k,d){ try{ const v=localStorage.getItem(k); return v===null?d:JSON.parse(v);}catch(e){return d;} },
-  set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} },
-  del(k){ try{ localStorage.removeItem(k);}catch(e){} }
+  set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
 };
-
 const S = {
   url: LS.get("gh.url","") || DEFAULT_SCRIPT_URL,
   auth: LS.get("gh.auth",false),
@@ -460,33 +460,26 @@ const S = {
   groceries: LS.get("gh.cache.g",[]),
   todos: LS.get("gh.cache.t",[]),
   q:"", fStore:"", fCat:"", fPrio:"",
-  loaded:false, busy:false, editing:null,
-  addOpen:false, moreOpen:false,
-  draft:{store:"Costco", customStore:"", unit:"", cat:"Produce", prio:"Normal"}
+  showFilters:false, showDetails:false,
+  draft:{store:LS.get("gh.lastStore","Costco"), customStore:"", unit:"", cat:"", prio:"Normal"},
+  editing:null, shellKey:null
 };
 
 const $ = s => document.querySelector(s);
-const el = (t,c,h)=>{const n=document.createElement(t); if(c)n.className=c; if(h!=null)n.innerHTML=h; return n;};
 const esc = s => String(s==null?"":s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 const uid = p => p+"_"+Date.now().toString(36)+Math.random().toString(36).slice(2,7);
 const today = () => new Date().toISOString().slice(0,10);
+const modalOpen = () => !!document.querySelector(".scrim.open");
 
 function hueOf(store){
-  const f = STORES.find(s=>s.name===store);
-  if(f) return f.hue;
-  let h=0; for(const ch of String(store||"")) h=(h*31+ch.charCodeAt(0))%360;
-  return h;
+  const f=STORES.find(s=>s.name===store); if(f) return f.hue;
+  let h=0; for(const ch of String(store||"")) h=(h*31+ch.charCodeAt(0))%360; return h;
 }
 function iconOf(store){ const f=STORES.find(s=>s.name===store); return f?f.icon:"📍"; }
 function catIcon(c){ const f=CATS.find(x=>x.name===c); return f?f.icon:"📦"; }
-function storeStyle(store){
-  const h=hueOf(store);
-  return `background:hsl(${h} 62% 94% / 1);color:hsl(${h} 55% 28%);border-color:hsl(${h} 45% 80%)`;
-}
 function isDark(){
   const t=document.documentElement.getAttribute("data-theme");
-  if(t) return t==="dark";
-  return window.matchMedia("(prefers-color-scheme:dark)").matches;
+  return t ? t==="dark" : window.matchMedia("(prefers-color-scheme:dark)").matches;
 }
 function storeChipStyle(store){
   const h=hueOf(store);
@@ -494,20 +487,15 @@ function storeChipStyle(store){
     ? `background:hsl(${h} 40% 17%);color:hsl(${h} 55% 76%);border-color:hsl(${h} 35% 28%)`
     : `background:hsl(${h} 62% 95%);color:hsl(${h} 52% 29%);border-color:hsl(${h} 45% 84%)`;
 }
-function swatch(store){ const h=hueOf(store); return `background:hsl(${h} 58% 52%)`; }
+function swatch(store){ return `background:hsl(${hueOf(store)} 58% 52%)`; }
 
 function toast(msg,bad){
   const box=$("#toasts");
   while(box.children.length>=3) box.firstChild.remove();
-  const t=el("div","toast"+(bad?" bad":""),esc(msg));
+  const t=document.createElement("div");
+  t.className="toast"+(bad?" bad":""); t.textContent=msg;
   box.appendChild(t);
-  setTimeout(()=>{ t.style.transition="opacity .3s"; t.style.opacity="0"; setTimeout(()=>t.remove(),300); }, bad?4200:2200);
-}
-let lastLocalNag=0;
-function nagLocal(){
-  if(Date.now()-lastLocalNag < 120000) return;
-  lastLocalNag=Date.now();
-  toast("Saved in this browser only — open ⚙ to sync with your sheet");
+  setTimeout(()=>{ t.style.transition="opacity .3s"; t.style.opacity="0"; setTimeout(()=>t.remove(),300); }, bad?4200:2000);
 }
 function fmtDate(d){
   if(!d) return "";
@@ -517,23 +505,40 @@ function fmtDate(d){
 }
 function relDue(d){
   if(!d) return null;
-  const t=new Date(today()+"T12:00:00"), dt=new Date(d+"T12:00:00");
-  const days=Math.round((dt-t)/86400000);
+  const days=Math.round((new Date(d+"T12:00:00")-new Date(today()+"T12:00:00"))/86400000);
   if(days<0) return {txt:(days===-1?"Yesterday":Math.abs(days)+" days overdue"), late:true};
-  if(days===0) return {txt:"Today", late:false, soon:true};
-  if(days===1) return {txt:"Tomorrow", soon:true};
+  if(days===0) return {txt:"Today"};
+  if(days===1) return {txt:"Tomorrow"};
   if(days<=7) return {txt:"In "+days+" days"};
   return {txt:fmtDate(d)};
 }
 
-/* ============================================================
-   3. Sheets API (Apps Script web app)
-   ============================================================ */
-function setSync(state,label){
-  const p=$("#syncPill"); p.dataset.s=state; $("#syncLbl").textContent=label;
+/* "2 lb toor dal" -> {qty:"2", unit:"lb", item:"toor dal"} */
+function parseItem(raw){
+  const s=String(raw||"").trim();
+  const m=s.match(/^(\d+(?:[.,]\d+)?)\s+(.+)$/);
+  if(!m) return {item:s, qty:"", unit:""};
+  let rest=m[2].trim(), unit="";
+  const w=rest.split(/\s+/);
+  const head=w[0].toLowerCase().replace(/\.$/,"");
+  const known=UNITS.find(u=>u.toLowerCase()===head || u.toLowerCase()+"s"===head);
+  if(known && w.length>1){ unit=known; rest=w.slice(1).join(" "); }
+  return {item:rest, qty:m[1].replace(",","."), unit};
 }
+function guessCat(name){
+  const n=" "+String(name||"").toLowerCase()+" ";
+  for(const c of CAT_HINTS) for(const w of c.words) if(n.includes(" "+w) || n.includes(w+" ")) return c.name;
+  return "Other";
+}
+
+/* ============================================================
+   3. Sheets API
+   ============================================================ */
+function setSync(state,label){ $("#syncPill").dataset.s=state; $("#syncLbl").textContent=label; }
+const clock = () => new Date().toLocaleTimeString([], {hour:"numeric",minute:"2-digit"});
+
 async function apiGet(url){
-  const u=(url||S.url);
+  const u=url||S.url;
   if(!u) throw new Error("No web app URL configured.");
   const r=await fetch(u+(u.indexOf("?")<0?"?":"&")+"action=read&_="+Date.now(),{method:"GET",redirect:"follow"});
   if(!r.ok) throw new Error("HTTP "+r.status);
@@ -543,7 +548,6 @@ async function apiGet(url){
 }
 async function apiPost(action,payload){
   if(!S.url) throw new Error("No web app URL configured.");
-  // text/plain body => "simple request" => no CORS preflight (Apps Script can't answer OPTIONS)
   const r=await fetch(S.url,{
     method:"POST", redirect:"follow",
     headers:{"Content-Type":"text/plain;charset=utf-8"},
@@ -556,26 +560,10 @@ async function apiPost(action,payload){
 }
 function cache(){ LS.set("gh.cache.g",S.groceries); LS.set("gh.cache.t",S.todos); }
 
-async function refresh(silent){
-  if(!S.url){ setSync("off","Local only"); render(); return; }
-  setSync("busy","Syncing…");
-  try{
-    const j=await apiGet();
-    S.groceries=(j.groceries||[]).map(normG);
-    S.todos=(j.todos||[]).map(normT);
-    S.loaded=true; cache();
-    setSync("ok","Synced "+new Date().toLocaleTimeString([], {hour:"numeric",minute:"2-digit"}));
-    render();
-  }catch(e){
-    setSync("err","Sync failed");
-    if(!silent) toast("Could not reach the sheet: "+e.message,true);
-    render();
-  }
-}
 function normG(r){
   return {
     id:r.id||uid("g"), item:r.item||"", store:r.store||"Other",
-    qty:r.qty===""||r.qty==null?"":r.qty, unit:r.unit||"",
+    qty:r.qty==null?"":r.qty, unit:r.unit||"",
     category:r.category||"Other", priority:PRIOS.indexOf(r.priority)>=0?r.priority:"Normal",
     notes:r.notes||"", status:r.status==="bought"?"bought":"pending",
     addedAt:r.addedAt||today(), boughtAt:r.boughtAt||""
@@ -588,20 +576,34 @@ function normT(r){
     addedAt:r.addedAt||today(), doneAt:r.doneAt||""
   };
 }
-
-/* optimistic write: mutate locally, push, roll back on failure */
-async function push(action,payload,rollback){
-  cache(); render();
-  if(!S.url){ setSync("off","Local only"); nagLocal(); return; }
-  setSync("busy","Saving…");
+async function refresh(silent){
+  if(!S.url){ setSync("off","Local only"); repaint(); return; }
+  setSync("busy","Syncing…");
   try{
-    await apiPost(action,payload);
-    setSync("ok","Saved "+new Date().toLocaleTimeString([], {hour:"numeric",minute:"2-digit"}));
+    const j=await apiGet();
+    S.groceries=(j.groceries||[]).map(normG);
+    S.todos=(j.todos||[]).map(normT);
+    cache(); setSync("ok","Synced "+clock()); repaint();
   }catch(e){
-    setSync("err","Save failed");
-    toast("Didn't save: "+e.message,true);
+    setSync("err","Sync failed");
+    if(!silent) toast("Could not reach the sheet: "+e.message,true);
+    repaint();
+  }
+}
+let lastLocalNag=0;
+async function push(action,payload,rollback){
+  cache(); repaint();
+  if(!S.url){
+    setSync("off","Local only");
+    if(Date.now()-lastLocalNag>120000){ lastLocalNag=Date.now(); toast("Saved in this browser only — open ⚙ to sync"); }
+    return;
+  }
+  setSync("busy","Saving…");
+  try{ await apiPost(action,payload); setSync("ok","Saved "+clock()); }
+  catch(e){
+    setSync("err","Save failed"); toast("Didn't save: "+e.message,true);
     if(rollback) rollback();
-    cache(); render();
+    cache(); repaint();
   }
 }
 
@@ -612,6 +614,7 @@ function addGrocery(o){
   const row=normG(Object.assign({id:uid("g"),addedAt:today(),status:"pending"},o));
   S.groceries.unshift(row);
   push("upsertGrocery",row,()=>{ S.groceries=S.groceries.filter(x=>x.id!==row.id); });
+  return row;
 }
 function addTodo(o){
   const row=normT(Object.assign({id:uid("t"),addedAt:today(),status:"open"},o));
@@ -621,15 +624,13 @@ function addTodo(o){
 function toggleG(id){
   const r=S.groceries.find(x=>x.id===id); if(!r) return;
   const prev={status:r.status,boughtAt:r.boughtAt};
-  if(r.status==="pending"){ r.status="bought"; r.boughtAt=today(); }
-  else { r.status="pending"; r.boughtAt=""; }
+  if(r.status==="pending"){ r.status="bought"; r.boughtAt=today(); } else { r.status="pending"; r.boughtAt=""; }
   push("upsertGrocery",r,()=>Object.assign(r,prev));
 }
 function toggleT(id){
   const r=S.todos.find(x=>x.id===id); if(!r) return;
   const prev={status:r.status,doneAt:r.doneAt};
-  if(r.status==="open"){ r.status="done"; r.doneAt=today(); }
-  else { r.status="open"; r.doneAt=""; }
+  if(r.status==="open"){ r.status="done"; r.doneAt=today(); } else { r.status="open"; r.doneAt=""; }
   push("upsertTodo",r,()=>Object.assign(r,prev));
 }
 function delRow(kind,id){
@@ -645,26 +646,28 @@ function restock(id){
 }
 
 /* ============================================================
-   5. Rendering
+   5. Option builders
    ============================================================ */
-function storeOptions(sel,includeAll){
-  let h = includeAll?`<option value="">All stores</option>`:"";
-  const known=STORES.map(s=>s.name);
+function knownStores(){ return STORES.map(s=>s.name); }
+function allStores(){
+  const known=knownStores();
+  const custom=[...new Set(S.groceries.map(g=>g.store))].filter(n=>n && known.indexOf(n)<0);
+  return known.filter(n=>n!=="Other").concat(custom).concat(["Other"]);
+}
+function storeOptions(sel){
+  let h="";
   for(const s of STORES) h+=`<option value="${esc(s.name)}"${sel===s.name?" selected":""}>${s.icon} ${esc(s.name)}</option>`;
-  if(sel && known.indexOf(sel)<0) h+=`<option value="${esc(sel)}" selected>📍 ${esc(sel)}</option>`;
-  if(includeAll){
-    const custom=[...new Set(S.groceries.map(g=>g.store))].filter(n=>known.indexOf(n)<0);
-    for(const n of custom) h+=`<option value="${esc(n)}"${sel===n?" selected":""}>📍 ${esc(n)}</option>`;
-  }
+  if(sel && knownStores().indexOf(sel)<0) h+=`<option value="${esc(sel)}" selected>📍 ${esc(sel)}</option>`;
   return h;
 }
-function catOptions(sel,includeAll){
-  let h = includeAll?`<option value="">All categories</option>`:"";
+function catOptions(sel,mode){
+  let h = mode==="all" ? `<option value="">All categories</option>`
+        : mode==="auto" ? `<option value=""${sel?"":" selected"}>✨ Auto — pick for me</option>` : "";
   for(const c of CATS) h+=`<option value="${esc(c.name)}"${sel===c.name?" selected":""}>${c.icon} ${esc(c.name)}</option>`;
   return h;
 }
-function prioOptions(sel,includeAll){
-  let h = includeAll?`<option value="">Any priority</option>`:"";
+function prioOptions(sel,all){
+  let h = all?`<option value="">Any priority</option>`:"";
   for(const p of PRIOS) h+=`<option value="${p}"${sel===p?" selected":""}>${p==="Urgent"?"🔴":p==="Normal"?"🟡":"⚪"} ${p}</option>`;
   return h;
 }
@@ -675,6 +678,102 @@ function unitOptions(sel){
   return h;
 }
 
+/* ============================================================
+   6. Shell — built once per view; NEVER rebuilt while typing
+   ============================================================ */
+function addBarHTML(kind){
+  if(kind==="todo"){
+    return `<div class="addbar">
+      <div class="addmain">
+        <span class="plus">＋</span>
+        <input class="big" id="tTask" placeholder="Add a task — call the plumber, renew membership…" autocomplete="off">
+        <button class="btn primary" id="doAddT">Add</button>
+      </div>
+      <div class="addfoot">
+        <button class="detailtoggle" id="toggleMoreT">＋ Due date &amp; priority</button>
+        <span class="tip">Press Enter to add.</span>
+      </div>
+      <div class="details" id="addMoreT">
+        <div class="f"><label class="lbl" for="tPrio">Priority</label><select class="fld" id="tPrio">${prioOptions("Normal",false)}</select></div>
+        <div class="f"><label class="lbl" for="tDue">Due date</label><input class="fld" id="tDue" type="date"></div>
+        <div class="f wide" style="grid-column:span 2"><label class="lbl" for="tNotes">Notes</label><input class="fld" id="tNotes" placeholder="Optional details"></div>
+      </div>
+    </div>`;
+  }
+  const d=S.draft;
+  return `<div class="addbar">
+    <div class="addmain">
+      <span class="plus">＋</span>
+      <input class="big" id="aItem" placeholder="Add an item — try “2 lb toor dal”" autocomplete="off">
+      <select class="storesel" id="aStore" aria-label="Store">${storeOptions(d.store)}</select>
+      <button class="btn primary" id="doAdd">Add</button>
+    </div>
+    <div class="f csrow" id="customStoreWrap" style="${d.store==="Other"?"":"display:none"}">
+      <input class="fld" id="aStoreCustom" placeholder="Store name — Trader Joe's, 99 Ranch, Sprouts…" value="${esc(d.customStore)}">
+    </div>
+    <div class="apreview" id="aPreview"></div>
+    <div class="addfoot">
+      <button class="detailtoggle" id="toggleMore">＋ More details</button>
+      <span class="tip">Enter adds. Quantity and category are worked out for you.</span>
+    </div>
+    <div class="details" id="addMore">
+      <div class="f"><label class="lbl" for="aQty">Quantity</label><input class="fld" id="aQty" placeholder="2" inputmode="decimal"></div>
+      <div class="f"><label class="lbl" for="aUnit">Unit</label><select class="fld" id="aUnit">${unitOptions(d.unit)}</select></div>
+      <div class="f"><label class="lbl" for="aCat">Category</label><select class="fld" id="aCat">${catOptions(d.cat,"auto")}</select></div>
+      <div class="f"><label class="lbl" for="aPrio">Priority</label><select class="fld" id="aPrio">${prioOptions(d.prio,false)}</select></div>
+      <div class="f wide"><label class="lbl" for="aNotes">Notes</label><input class="fld" id="aNotes" placeholder="Brand, size, aisle, for whom…"></div>
+    </div>
+  </div>`;
+}
+
+function searchHTML(ph){
+  return `<label class="search${S.q?" has":""}">
+    <span class="ic">🔎</span>
+    <input id="q" placeholder="${esc(ph)}" value="${esc(S.q)}" autocomplete="off">
+    <button class="clr" id="qClear" type="button" aria-label="Clear search">✕</button>
+  </label>`;
+}
+function filtersHTML(){
+  return `<button class="btn sm fbtn" id="fToggle">Filters<span class="n hide" id="fCount"></span></button>
+  <div class="morefilters${S.showFilters?" open":""}" id="moreF" style="width:100%">
+    <div class="f"><label class="lbl" for="fCat">Category</label><select class="fld" id="fCat">${catOptions(S.fCat,"all")}</select></div>
+    <div class="f"><label class="lbl" for="fPrio">Priority</label><select class="fld" id="fPrio">${prioOptions(S.fPrio,true)}</select></div>
+    <button class="btn sm" id="clearF">Clear all</button>
+  </div>`;
+}
+
+function buildShell(){
+  const c=$("#content");
+  if(S.view==="list"){
+    c.innerHTML =
+      (S.auth?addBarHTML("grocery"):"") +
+      `<div class="toolbar">${searchHTML("Search items, notes, stores…")}<button class="btn sm fbtn" id="fToggle">Filters<span class="n hide" id="fCount"></span></button></div>
+       <div class="morefilters${S.showFilters?" open":""}" id="moreF">
+         <div class="f"><label class="lbl" for="fCat">Category</label><select class="fld" id="fCat">${catOptions(S.fCat,"all")}</select></div>
+         <div class="f"><label class="lbl" for="fPrio">Priority</label><select class="fld" id="fPrio">${prioOptions(S.fPrio,true)}</select></div>
+         <button class="btn sm" id="clearF">Clear all</button>
+       </div>
+       <div class="chips" id="chips"></div>
+       <div class="stats" id="stats"></div>
+       <div id="rows"></div>`;
+  } else if(S.view==="todo"){
+    c.innerHTML =
+      (S.auth?addBarHTML("todo"):"") +
+      `<div class="toolbar">${searchHTML("Search tasks…")}</div>
+       <div class="stats" id="stats"></div>
+       <div id="rows"></div>`;
+  } else {
+    c.innerHTML =
+      `<div class="toolbar">${searchHTML("Search past purchases…")}</div>
+       <div class="chips" id="chips"></div>
+       <div id="rows"></div>`;
+  }
+  wireShell();
+}
+
+/* ============================================================
+   7. Repaint — only stats / chips / rows. Inputs are untouched.
+   ============================================================ */
 function matches(g){
   if(S.fStore && g.store!==S.fStore) return false;
   if(S.fCat && g.category!==S.fCat) return false;
@@ -685,22 +784,26 @@ function matches(g){
   }
   return true;
 }
+function matchesT(t){
+  if(!S.q) return true;
+  const q=S.q.toLowerCase();
+  return ((t.task||"")+" "+(t.notes||"")).toLowerCase().includes(q);
+}
 
 function groceryRow(g,mode){
-  const done = g.status==="bought";
-  const prioCls = g.priority==="Urgent"?"p-urgent":g.priority==="Whenever"?"p-whenever":"";
-  const qty = (g.qty!==""&&g.qty!=null) ? `<span class="chip qty">${esc(g.qty)}${g.unit?" "+esc(g.unit):""}</span>` : (g.unit?`<span class="chip qty">${esc(g.unit)}</span>`:"");
-  const dateChip = mode==="history" && g.boughtAt ? `<span class="chip">🗓 ${esc(fmtDate(g.boughtAt))}</span>` : "";
-  return `<div class="row ${done?"done":""} ${(!done&&g.priority==="Urgent")?"urgent":""}" data-id="${esc(g.id)}">
+  const done=g.status==="bought";
+  const qty=(g.qty!=="" && g.qty!=null) ? `<span class="chip qty">${esc(g.qty)}${g.unit?" "+esc(g.unit):""}</span>`
+           : (g.unit?`<span class="chip qty">${esc(g.unit)}</span>`:"");
+  return `<div class="row ${done?"done":""} ${(!done&&g.priority==="Urgent")?"urgent":""}">
     <button class="chk" role="checkbox" aria-checked="${done}" data-act="toggleG" data-id="${esc(g.id)}" ${S.auth?"":"disabled"} title="${done?"Move back to list":"Mark as bought"}">✓</button>
     <div class="main">
-      <div class="nm">${esc(g.item)||"<em>Untitled</em>"}</div>
+      <div class="nm">${esc(g.item)||"Untitled"}</div>
       <div class="meta">
         ${qty}
         <span class="chip store" style="${storeChipStyle(g.store)}">${iconOf(g.store)} ${esc(g.store)}</span>
         <span class="chip">${catIcon(g.category)} ${esc(g.category)}</span>
-        ${g.priority!=="Normal"?`<span class="chip ${prioCls}">${g.priority==="Urgent"?"🔴":"⚪"} ${esc(g.priority)}</span>`:""}
-        ${dateChip}
+        ${g.priority!=="Normal"?`<span class="chip ${g.priority==="Urgent"?"p-urgent":"p-whenever"}">${g.priority==="Urgent"?"🔴":"⚪"} ${esc(g.priority)}</span>`:""}
+        ${mode==="history"&&g.boughtAt?`<span class="chip">🗓 ${esc(fmtDate(g.boughtAt))}</span>`:""}
       </div>
       ${g.notes?`<div class="note">${esc(g.notes)}</div>`:""}
     </div>
@@ -711,14 +814,12 @@ function groceryRow(g,mode){
     </div>`:""}
   </div>`;
 }
-
 function todoRow(t){
-  const done=t.status==="done";
-  const due=relDue(t.due);
-  return `<div class="row ${done?"done":""} ${(!done&&t.priority==="Urgent")?"urgent":""}" data-id="${esc(t.id)}">
+  const done=t.status==="done", due=relDue(t.due);
+  return `<div class="row ${done?"done":""} ${(!done&&t.priority==="Urgent")?"urgent":""}">
     <button class="chk" role="checkbox" aria-checked="${done}" data-act="toggleT" data-id="${esc(t.id)}" ${S.auth?"":"disabled"} title="${done?"Reopen":"Mark done"}">✓</button>
     <div class="main">
-      <div class="nm">${esc(t.task)||"<em>Untitled</em>"}</div>
+      <div class="nm">${esc(t.task)||"Untitled"}</div>
       <div class="meta">
         ${t.priority!=="Normal"?`<span class="chip ${t.priority==="Urgent"?"p-urgent":"p-whenever"}">${t.priority==="Urgent"?"🔴":"⚪"} ${esc(t.priority)}</span>`:""}
         ${due&&!done?`<span class="chip ${due.late?"p-urgent":""}">🗓 ${esc(due.txt)}</span>`:""}
@@ -732,260 +833,269 @@ function todoRow(t){
     </div>`:""}
   </div>`;
 }
-
 function emptyBox(icon,title,body){
   return `<div class="empty"><div class="big">${icon}</div><h3>${esc(title)}</h3><p>${body}</p></div>`;
 }
-
-function viewList(){
-  const pending=S.groceries.filter(g=>g.status==="pending");
-  const shown=pending.filter(matches);
-  const urgent=pending.filter(g=>g.priority==="Urgent").length;
-  const stores=new Set(pending.map(g=>g.store)).size;
-  const boughtThisWeek=S.groceries.filter(g=>{
-    if(g.status!=="bought"||!g.boughtAt) return false;
-    return (new Date()-new Date(g.boughtAt+"T12:00:00"))<7*86400000;
-  }).length;
-
-  let h=`<div class="stats">
-    <div class="stat"><div class="k">To buy</div><div class="v">${pending.length}</div></div>
-    <div class="stat"><div class="k">Urgent</div><div class="v" style="${urgent?"color:var(--red)":""}">${urgent}</div></div>
-    <div class="stat"><div class="k">Stores</div><div class="v">${stores}</div></div>
-    <div class="stat"><div class="k">Bought</div><div class="v">${boughtThisWeek} <small>this week</small></div></div>
-  </div>
-
-  <div class="toolbar">
-    <label class="search"><span class="ic">🔎</span><input id="q" placeholder="Search items, notes, stores…" value="${esc(S.q)}"></label>
-    <select class="filt" id="fStore" data-active="${!!S.fStore}">${storeOptions(S.fStore,true)}</select>
-    <select class="filt" id="fCat" data-active="${!!S.fCat}">${catOptions(S.fCat,true)}</select>
-    <select class="filt" id="fPrio" data-active="${!!S.fPrio}">${prioOptions(S.fPrio,true)}</select>
-    ${(S.q||S.fStore||S.fCat||S.fPrio)?`<button class="btn ghost sm" id="clearF">Clear</button>`:""}
-    ${S.auth?`<button class="btn primary" id="openAdd">＋ Add item</button>`:""}
-  </div>`;
-
-  if(S.auth){
-    const d=S.draft;
-    h+=`<div class="addpanel ${S.addOpen?"":"hide"}" id="addPanel">
-      <div class="addgrid">
-        <div class="f"><label class="lbl" for="aItem">Item</label><input class="fld" id="aItem" placeholder="Toor dal, paneer, paper towels…"></div>
-        <div class="f"><label class="lbl" for="aStore">Store</label><select class="fld" id="aStore">${storeOptions(d.store,false)}</select></div>
-        <div class="f"><label class="lbl" for="aQty">Qty</label><input class="fld" id="aQty" placeholder="2" inputmode="decimal"></div>
-        <div class="f"><label class="lbl" for="aUnit">Unit</label><select class="fld" id="aUnit">${unitOptions(d.unit)}</select></div>
-        <div class="f" style="justify-content:flex-end"><button class="btn primary" id="doAdd" style="height:38px">Add</button></div>
-      </div>
-      <div class="addmore ${S.moreOpen?"open":""}" id="addMore">
-        <div class="f"><label class="lbl" for="aCat">Category</label><select class="fld" id="aCat">${catOptions(d.cat,false)}</select></div>
-        <div class="f"><label class="lbl" for="aPrio">Priority</label><select class="fld" id="aPrio">${prioOptions(d.prio,false)}</select></div>
-        <div class="f"><label class="lbl" for="aNotes">Notes</label><input class="fld" id="aNotes" placeholder="Brand, size, aisle, for whom…"></div>
-      </div>
-      <div class="f ${d.store==="Other"?"":"hide"}" id="customStoreWrap" style="margin-top:8px">
-        <label class="lbl" for="aStoreCustom">Store name</label>
-        <input class="fld" id="aStoreCustom" placeholder="Trader Joe's, 99 Ranch, Sprouts…" value="${esc(d.customStore)}">
-      </div>
-      <div class="addfoot">
-        <button class="btn ghost sm" id="toggleMore">${S.moreOpen?"Fewer options ▴":"More options ▾"}</button>
-        <span class="hint" style="margin:0">Store and category stay put, so a run of items from one shop is quick. Enter adds.</span>
-      </div>
-    </div>`;
-  }
-
-  if(!shown.length){
-    h += pending.length
-      ? emptyBox("🔍","Nothing matches those filters","Try clearing the search or picking a different store.")
-      : emptyBox("🛒","Your list is empty","Nothing to buy right now. "+(S.auth?"Use <b>Add item</b> above to start a new list.":"Sign in to start adding items."));
-    return h;
-  }
-
-  const byStore={};
-  for(const g of shown){ (byStore[g.store]=byStore[g.store]||[]).push(g); }
-  const order=Object.keys(byStore).sort((a,b)=>{
-    const ia=STORES.findIndex(s=>s.name===a), ib=STORES.findIndex(s=>s.name===b);
-    return (ia<0?99:ia)-(ib<0?99:ib) || a.localeCompare(b);
-  });
-  const rank={Urgent:0,Normal:1,Whenever:2};
-  for(const st of order){
-    const items=byStore[st].sort((a,b)=>(rank[a.priority]-rank[b.priority])||a.category.localeCompare(b.category)||a.item.localeCompare(b.item));
-    h+=`<div class="group">
-      <div class="ghead">
-        <span class="swatch" style="${swatch(st)}"></span>
-        <span class="name">${iconOf(st)} ${esc(st)}</span>
-        <span class="n">${items.length} item${items.length===1?"":"s"}</span>
-        <span class="line"></span>
-      </div>
-      <div class="card">${items.map(g=>groceryRow(g,"list")).join("")}</div>
-    </div>`;
-  }
-  return h;
+function group(label,icon,sw,n,inner){
+  return `<div class="group"><div class="ghead"><span class="swatch" style="${sw}"></span>
+    <span class="name">${icon} ${esc(label)}</span><span class="n">${n}</span><span class="line"></span></div>
+    <div class="card">${inner}</div></div>`;
 }
 
-function viewTodo(){
-  const open=S.todos.filter(t=>t.status==="open");
-  const done=S.todos.filter(t=>t.status==="done");
-  const overdue=open.filter(t=>t.due && t.due<today()).length;
-  const dueToday=open.filter(t=>t.due===today()).length;
-
-  let h=`<div class="stats">
-    <div class="stat"><div class="k">Open</div><div class="v">${open.length}</div></div>
-    <div class="stat"><div class="k">Due today</div><div class="v">${dueToday}</div></div>
-    <div class="stat"><div class="k">Overdue</div><div class="v" style="${overdue?"color:var(--red)":""}">${overdue}</div></div>
-    <div class="stat"><div class="k">Done</div><div class="v">${done.length}</div></div>
-  </div>`;
-
-  if(S.auth){
-    h+=`<div class="addpanel" style="margin-top:18px">
-      <div class="addgrid" style="grid-template-columns:2.4fr 1fr 1fr auto">
-        <div class="f"><label class="lbl" for="tTask">Task</label><input class="fld" id="tTask" placeholder="Call the plumber, renew costco membership…"></div>
-        <div class="f"><label class="lbl" for="tPrio">Priority</label><select class="fld" id="tPrio">${prioOptions("Normal",false)}</select></div>
-        <div class="f"><label class="lbl" for="tDue">Due</label><input class="fld" id="tDue" type="date"></div>
-        <div class="f" style="justify-content:flex-end"><button class="btn primary" id="doAddT" style="height:38px">Add</button></div>
-      </div>
-      <div class="f" style="margin-top:8px"><label class="lbl" for="tNotes">Notes</label><input class="fld" id="tNotes" placeholder="Optional details"></div>
-    </div>`;
+function paintChips(pool){
+  const box=$("#chips"); if(!box) return;
+  const counts={};
+  for(const g of pool) counts[g.store]=(counts[g.store]||0)+1;
+  const stores=allStores().filter(s=>counts[s]).concat(
+    Object.keys(counts).filter(s=>allStores().indexOf(s)<0));
+  let h=`<button class="schip" data-store="" aria-pressed="${!S.fStore}">All <span class="n">${pool.length}</span></button>`;
+  for(const s of stores){
+    h+=`<button class="schip" data-store="${esc(s)}" aria-pressed="${S.fStore===s}">${iconOf(s)} ${esc(s)} <span class="n">${counts[s]}</span></button>`;
   }
-
-  const rank={Urgent:0,Normal:1,Whenever:2};
-  const sorted=open.slice().sort((a,b)=>{
-    const ad=a.due||"9999", bd=b.due||"9999";
-    return (rank[a.priority]-rank[b.priority]) || ad.localeCompare(bd) || a.task.localeCompare(b.task);
-  });
-
-  if(!open.length && !done.length){
-    h+=emptyBox("✅","No to-dos yet",S.auth?"Add your first task above.":"Sign in to add tasks.");
-    return h;
-  }
-  if(sorted.length){
-    h+=`<div class="group"><div class="ghead"><span class="swatch" style="background:var(--accent)"></span>
-      <span class="name">Open</span><span class="n">${sorted.length}</span><span class="line"></span></div>
-      <div class="card">${sorted.map(todoRow).join("")}</div></div>`;
-  }
-  if(done.length){
-    const d=done.slice().sort((a,b)=>(b.doneAt||"").localeCompare(a.doneAt||""));
-    h+=`<div class="group"><div class="ghead"><span class="swatch" style="background:var(--faint)"></span>
-      <span class="name">Completed</span><span class="n">${d.length}</span><span class="line"></span></div>
-      <div class="card">${d.slice(0,50).map(todoRow).join("")}</div></div>`;
-  }
-  return h;
+  box.innerHTML=h;
+}
+function paintFilterCount(){
+  const n=(S.fCat?1:0)+(S.fPrio?1:0);
+  const el=$("#fCount"); if(!el) return;
+  el.textContent=n; el.classList.toggle("hide",!n);
 }
 
-function viewHistory(){
-  const bought=S.groceries.filter(g=>g.status==="bought").filter(matches);
-  let h=`<div class="toolbar">
-    <label class="search"><span class="ic">🔎</span><input id="q" placeholder="Search past purchases…" value="${esc(S.q)}"></label>
-    <select class="filt" id="fStore" data-active="${!!S.fStore}">${storeOptions(S.fStore,true)}</select>
-    <select class="filt" id="fCat" data-active="${!!S.fCat}">${catOptions(S.fCat,true)}</select>
-    ${(S.q||S.fStore||S.fCat||S.fPrio)?`<button class="btn ghost sm" id="clearF">Clear</button>`:""}
-  </div>`;
-  if(!bought.length){
-    h+=emptyBox("📦","Nothing here yet","Items you check off on the shopping list land here with the date you bought them — handy for working out when to restock.");
-    return h;
-  }
-  const byMonth={};
-  for(const g of bought){
-    const k=(g.boughtAt||"").slice(0,7)||"Unknown";
-    (byMonth[k]=byMonth[k]||[]).push(g);
-  }
-  for(const k of Object.keys(byMonth).sort().reverse()){
-    const label = k==="Unknown" ? "Undated" :
-      new Date(k+"-01T12:00:00").toLocaleDateString(undefined,{month:"long",year:"numeric"});
-    const items=byMonth[k].sort((a,b)=>(b.boughtAt||"").localeCompare(a.boughtAt||""));
-    h+=`<div class="group">
-      <div class="ghead"><span class="swatch" style="background:var(--faint)"></span>
-        <span class="name">${esc(label)}</span><span class="n">${items.length}</span><span class="line"></span></div>
-      <div class="card">${items.map(g=>groceryRow(g,"history")).join("")}</div>
-    </div>`;
-  }
-  return h;
-}
-
-function render(){
+function repaint(){
   $("#cList").textContent=S.groceries.filter(g=>g.status==="pending").length;
   $("#cTodo").textContent=S.todos.filter(t=>t.status==="open").length;
   $("#cHist").textContent=S.groceries.filter(g=>g.status==="bought").length;
   document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected",String(t.dataset.view===S.view)));
   $("#authBtn").textContent = S.auth ? "Sign out" : "Sign in";
   $("#roBanner").classList.toggle("hide", S.auth);
-  $("#content").innerHTML = S.view==="list"?viewList() : S.view==="todo"?viewTodo() : viewHistory();
-  wireContent();
+  const sr=$("#rows"); if(!sr) return;
+
+  if(S.view==="list"){
+    const pending=S.groceries.filter(g=>g.status==="pending");
+    paintChips(pending); paintFilterCount();
+    const shown=pending.filter(matches);
+    const urgent=pending.filter(g=>g.priority==="Urgent").length;
+    const week=S.groceries.filter(g=>g.status==="bought"&&g.boughtAt&&(new Date()-new Date(g.boughtAt+"T12:00:00"))<7*864e5).length;
+    $("#stats").innerHTML=`
+      <div class="stat"><div class="k">To buy</div><div class="v">${pending.length}</div></div>
+      <div class="stat"><div class="k">Urgent</div><div class="v" style="${urgent?"color:var(--red)":""}">${urgent}</div></div>
+      <div class="stat"><div class="k">Stores</div><div class="v">${new Set(pending.map(g=>g.store)).size}</div></div>
+      <div class="stat"><div class="k">Bought</div><div class="v">${week} <small>this week</small></div></div>`;
+    if(!shown.length){
+      sr.innerHTML = pending.length
+        ? emptyBox("🔍","Nothing matches","Try clearing the search, or tap <b>All</b> above.")
+        : emptyBox("🛒","Your list is empty", S.auth?"Type an item in the bar above and press Enter.":"Sign in to start adding items.");
+      return;
+    }
+    const by={}; for(const g of shown) (by[g.store]=by[g.store]||[]).push(g);
+    const order=Object.keys(by).sort((a,b)=>{
+      const ia=STORES.findIndex(s=>s.name===a), ib=STORES.findIndex(s=>s.name===b);
+      return (ia<0?99:ia)-(ib<0?99:ib) || a.localeCompare(b);
+    });
+    const rank={Urgent:0,Normal:1,Whenever:2};
+    sr.innerHTML=order.map(st=>{
+      const items=by[st].sort((a,b)=>(rank[a.priority]-rank[b.priority])||a.category.localeCompare(b.category)||a.item.localeCompare(b.item));
+      return group(st,iconOf(st),swatch(st),items.length+" item"+(items.length===1?"":"s"),items.map(g=>groceryRow(g,"list")).join(""));
+    }).join("");
+
+  } else if(S.view==="todo"){
+    const open=S.todos.filter(t=>t.status==="open"), done=S.todos.filter(t=>t.status==="done");
+    const overdue=open.filter(t=>t.due&&t.due<today()).length;
+    $("#stats").innerHTML=`
+      <div class="stat"><div class="k">Open</div><div class="v">${open.length}</div></div>
+      <div class="stat"><div class="k">Due today</div><div class="v">${open.filter(t=>t.due===today()).length}</div></div>
+      <div class="stat"><div class="k">Overdue</div><div class="v" style="${overdue?"color:var(--red)":""}">${overdue}</div></div>
+      <div class="stat"><div class="k">Done</div><div class="v">${done.length}</div></div>`;
+    const rank={Urgent:0,Normal:1,Whenever:2};
+    const o=open.filter(matchesT).sort((a,b)=>(rank[a.priority]-rank[b.priority])||((a.due||"9999").localeCompare(b.due||"9999"))||a.task.localeCompare(b.task));
+    const d=done.filter(matchesT).sort((a,b)=>(b.doneAt||"").localeCompare(a.doneAt||""));
+    if(!o.length&&!d.length){
+      sr.innerHTML=emptyBox("✅", S.q?"No tasks match":"No to-dos yet", S.q?"Try a different search.":(S.auth?"Type a task in the bar above and press Enter.":"Sign in to add tasks."));
+      return;
+    }
+    let h="";
+    if(o.length) h+=group("Open","","background:var(--accent)",o.length,o.map(todoRow).join(""));
+    if(d.length) h+=group("Completed","","background:var(--faint)",d.length,d.slice(0,50).map(todoRow).join(""));
+    sr.innerHTML=h;
+
+  } else {
+    const bought=S.groceries.filter(g=>g.status==="bought");
+    paintChips(bought);
+    const shown=bought.filter(matches);
+    if(!shown.length){
+      sr.innerHTML=emptyBox("📦", bought.length?"Nothing matches":"Nothing here yet",
+        bought.length?"Try clearing the search, or tap <b>All</b> above."
+        :"Items you check off land here with the date you bought them — handy for working out when to restock.");
+      return;
+    }
+    const by={}; for(const g of shown){ const k=(g.boughtAt||"").slice(0,7)||"Unknown"; (by[k]=by[k]||[]).push(g); }
+    sr.innerHTML=Object.keys(by).sort().reverse().map(k=>{
+      const label = k==="Unknown" ? "Undated" : new Date(k+"-01T12:00:00").toLocaleDateString(undefined,{month:"long",year:"numeric"});
+      const items=by[k].sort((a,b)=>(b.boughtAt||"").localeCompare(a.boughtAt||""));
+      return group(label,"","background:var(--faint)",items.length,items.map(g=>groceryRow(g,"history")).join(""));
+    }).join("");
+  }
+}
+
+function render(){
+  const key=S.view+"|"+S.auth;
+  if(S.shellKey!==key){ S.shellKey=key; buildShell(); }
+  repaint();
 }
 
 /* ============================================================
-   6. Events
+   8. Shell wiring — attached once per shell build
    ============================================================ */
-function wireContent(){
+function wireShell(){
   const q=$("#q");
   if(q){
-    q.addEventListener("input",()=>{ S.q=q.value; const p=q.selectionStart; render(); const n=$("#q"); if(n){n.focus(); try{n.setSelectionRange(p,p);}catch(e){}} });
+    // Repaint touches only stats/chips/rows, so this input is never
+    // destroyed and never has to claw focus back.
+    q.addEventListener("input",()=>{
+      S.q=q.value;
+      q.parentElement.classList.toggle("has",!!q.value);
+      repaint();
+    });
+    q.addEventListener("keydown",e=>{ if(e.key==="Escape"&&q.value){ q.value=""; S.q=""; q.parentElement.classList.remove("has"); repaint(); } });
   }
-  const bind=(id,key)=>{ const n=$(id); if(n) n.addEventListener("change",()=>{ S[key]=n.value; render(); }); };
-  bind("#fStore","fStore"); bind("#fCat","fCat"); bind("#fPrio","fPrio");
-  const cf=$("#clearF"); if(cf) cf.addEventListener("click",()=>{ S.q="";S.fStore="";S.fCat="";S.fPrio=""; render(); });
+  const qc=$("#qClear");
+  if(qc) qc.addEventListener("click",()=>{ S.q=""; const n=$("#q"); n.value=""; n.parentElement.classList.remove("has"); n.focus(); repaint(); });
 
-  const openAdd=$("#openAdd");
-  if(openAdd) openAdd.addEventListener("click",()=>{
-    S.addOpen=!S.addOpen; render();
-    if(S.addOpen && $("#aItem")) $("#aItem").focus();
+  const ft=$("#fToggle");
+  if(ft) ft.addEventListener("click",()=>{ S.showFilters=!S.showFilters; $("#moreF").classList.toggle("open",S.showFilters); });
+  const fc=$("#fCat"); if(fc) fc.addEventListener("change",()=>{ S.fCat=fc.value; repaint(); });
+  const fp=$("#fPrio"); if(fp) fp.addEventListener("change",()=>{ S.fPrio=fp.value; repaint(); });
+  const cf=$("#clearF");
+  if(cf) cf.addEventListener("click",()=>{
+    S.fCat=""; S.fPrio=""; S.fStore=""; S.q="";
+    const n=$("#q"); if(n){ n.value=""; n.parentElement.classList.remove("has"); }
+    if(fc) fc.value=""; if(fp) fp.value="";
+    repaint();
   });
-  const tm=$("#toggleMore");
-  if(tm) tm.addEventListener("click",()=>{ S.moreOpen=!S.moreOpen; render(); });
 
-  const aStore=$("#aStore");
-  if(aStore) aStore.addEventListener("change",()=>{
-    S.draft.store=aStore.value;
-    $("#customStoreWrap").classList.toggle("hide", aStore.value!=="Other");
-    if(aStore.value==="Other") $("#aStoreCustom").focus();
+  const chips=$("#chips");
+  if(chips) chips.addEventListener("click",e=>{
+    const b=e.target.closest(".schip"); if(!b) return;
+    S.fStore = (b.dataset.store===S.fStore) ? "" : b.dataset.store;
+    repaint();
+    const again=chips.querySelector(`.schip[data-store="${CSS.escape(S.fStore)}"]`);
+    if(again) again.focus();
   });
-  const bindDraft=(id,key)=>{ const n=$(id); if(n) n.addEventListener("change",()=>{ S.draft[key]=n.value; }); };
-  bindDraft("#aUnit","unit"); bindDraft("#aCat","cat"); bindDraft("#aPrio","prio"); bindDraft("#aStoreCustom","customStore");
 
-  const doAdd=$("#doAdd");
-  if(doAdd){
-    const submit=()=>{
-      const item=$("#aItem").value.trim();
-      if(!item){ $("#aItem").focus(); toast("Give the item a name first",true); return; }
-      let store=$("#aStore").value;
-      S.draft.store=store;
-      S.draft.unit=$("#aUnit").value;
-      if($("#aCat")) S.draft.cat=$("#aCat").value;
-      if($("#aPrio")) S.draft.prio=$("#aPrio").value;
-      if(store==="Other"){
-        const c=$("#aStoreCustom").value.trim();
-        S.draft.customStore=c;
-        if(c) store=c;
-      }
-      S.addOpen=true;
-      addGrocery({
-        item, store,
-        qty:$("#aQty").value.trim(), unit:S.draft.unit,
-        category:$("#aCat")?$("#aCat").value:"Other",
-        priority:$("#aPrio")?$("#aPrio").value:"Normal",
-        notes:$("#aNotes")?$("#aNotes").value.trim():""
-      });
-      const n=$("#aItem"); if(n){ n.value=""; n.focus(); }
-      const qn=$("#aQty"); if(qn) qn.value="";
-      const nt=$("#aNotes"); if(nt) nt.value="";
-    };
-    doAdd.addEventListener("click",submit);
-    $("#aItem").addEventListener("keydown",e=>{ if(e.key==="Enter") submit(); });
-    $("#aQty").addEventListener("keydown",e=>{ if(e.key==="Enter") submit(); });
-    const an=$("#aNotes"); if(an) an.addEventListener("keydown",e=>{ if(e.key==="Enter") submit(); });
-  }
-  const doAddT=$("#doAddT");
-  if(doAddT){
-    const submitT=()=>{
-      const task=$("#tTask").value.trim();
-      if(!task){ $("#tTask").focus(); toast("Give the task a name first",true); return; }
-      addTodo({task,priority:$("#tPrio").value,due:$("#tDue").value,notes:$("#tNotes").value.trim()});
-      $("#tTask").value=""; $("#tNotes").value=""; $("#tDue").value="";
-      const n=$("#tTask"); if(n) n.focus();
-    };
-    doAddT.addEventListener("click",submitT);
-    $("#tTask").addEventListener("keydown",e=>{ if(e.key==="Enter") submitT(); });
-  }
+  wireAddGrocery();
+  wireAddTodo();
 }
 
+function detailsOpen(){ const d=$("#addMore"); return !!d && d.classList.contains("open"); }
+
+function updatePreview(){
+  const inp=$("#aItem"), el=$("#aPreview"); if(!inp||!el) return;
+  const raw=inp.value.trim();
+  if(!raw){ el.innerHTML=""; el.classList.remove("on"); return; }
+  const p=parseItem(raw);
+  const chosen = detailsOpen() ? $("#aCat").value : "";
+  const cat = chosen || guessCat(p.item);
+  const q = detailsOpen() ? ($("#aQty").value.trim()||p.qty) : p.qty;
+  const u = detailsOpen() ? ($("#aUnit").value||p.unit) : p.unit;
+  el.innerHTML = (q?`<b>${esc(q)}${u?" "+esc(u):""}</b> &nbsp;`:"")
+    + `${esc(p.item)} &nbsp;<span class="pvc">${catIcon(cat)} ${esc(cat)}</span>`;
+  el.classList.add("on");
+}
+
+function wireAddGrocery(){
+  const item=$("#aItem"); if(!item) return;
+  const store=$("#aStore"), more=$("#addMore"), tog=$("#toggleMore");
+
+  item.addEventListener("input",updatePreview);
+  tog.addEventListener("click",()=>{
+    S.showDetails=!more.classList.contains("open");
+    more.classList.toggle("open",S.showDetails);
+    tog.textContent = S.showDetails ? "− Fewer details" : "＋ More details";
+    updatePreview();
+    if(S.showDetails) $("#aQty").focus();
+  });
+  store.addEventListener("change",()=>{
+    S.draft.store=store.value; LS.set("gh.lastStore",store.value);
+    const w=$("#customStoreWrap");
+    if(store.value==="Other"){ w.style.display=""; $("#aStoreCustom").focus(); }
+    else { w.style.display="none"; }
+  });
+  ["#aQty","#aUnit","#aCat","#aPrio"].forEach(sel=>{
+    const n=$(sel); if(n) n.addEventListener("change",updatePreview);
+  });
+  const sc=$("#aStoreCustom");
+  if(sc){
+    sc.addEventListener("input",()=>{ S.draft.customStore=sc.value; });
+    sc.addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); item.focus(); } });
+  }
+
+  function submit(){
+    const raw=item.value.trim();
+    if(!raw){ item.focus(); toast("Type an item name first",true); return; }
+    const p=parseItem(raw);
+    const open=detailsOpen();
+    let st=store.value;
+    if(st==="Other"){ const c=($("#aStoreCustom").value||"").trim(); if(c) st=c; }
+
+    addGrocery({
+      item:p.item, store:st,
+      qty: open ? ($("#aQty").value.trim()||p.qty) : p.qty,
+      unit: open ? ($("#aUnit").value||p.unit) : p.unit,
+      category: (open && $("#aCat").value) || guessCat(p.item),
+      priority: open ? $("#aPrio").value : "Normal",
+      notes: open ? ($("#aNotes").value||"").trim() : ""
+    });
+    if(store.value==="Other" && st!=="Other"){
+      // promote the typed name to a real option so the picker stops saying "Other"
+      store.innerHTML=storeOptions(st); store.value=st;
+      $("#customStoreWrap").style.display="none"; $("#aStoreCustom").value="";
+      S.draft.customStore="";
+    }
+    S.draft.store=store.value;
+    LS.set("gh.lastStore",store.value);
+    // clear only what should not carry over; store stays put for a run of items
+    item.value=""; updatePreview();
+    if(open){ $("#aQty").value=""; $("#aNotes").value=""; }
+    item.focus();
+  }
+  $("#doAdd").addEventListener("click",submit);
+  item.addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); submit(); } });
+  const qn=$("#aQty"); if(qn) qn.addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); submit(); } });
+  const nn=$("#aNotes"); if(nn) nn.addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); submit(); } });
+}
+
+function wireAddTodo(){
+  const task=$("#tTask"); if(!task) return;
+  const more=$("#addMoreT"), tog=$("#toggleMoreT");
+  tog.addEventListener("click",()=>{
+    const open=!more.classList.contains("open");
+    more.classList.toggle("open",open);
+    tog.textContent = open ? "− Fewer options" : "＋ Due date & priority";
+    if(open) $("#tDue").focus();
+  });
+  function submit(){
+    const v=task.value.trim();
+    if(!v){ task.focus(); toast("Type a task first",true); return; }
+    const open=more.classList.contains("open");
+    addTodo({
+      task:v,
+      priority: open ? $("#tPrio").value : "Normal",
+      due: open ? $("#tDue").value : "",
+      notes: open ? ($("#tNotes").value||"").trim() : ""
+    });
+    task.value="";
+    if(open){ $("#tDue").value=""; $("#tNotes").value=""; }
+    task.focus();
+  }
+  $("#doAddT").addEventListener("click",submit);
+  task.addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); submit(); } });
+  const tn=$("#tNotes"); if(tn) tn.addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); submit(); } });
+}
+
+/* ============================================================
+   9. Row actions
+   ============================================================ */
 document.addEventListener("click",e=>{
-  const b=e.target.closest("[data-act]");
-  if(!b) return;
+  const b=e.target.closest("[data-act]"); if(!b) return;
   const id=b.dataset.id, a=b.dataset.act;
   if(!S.auth){ toast("Sign in to make changes",true); return; }
   if(a==="toggleG") toggleG(id);
@@ -996,73 +1106,103 @@ document.addEventListener("click",e=>{
   else if(a==="editG") openEdit("g",id);
   else if(a==="editT") openEdit("t",id);
 });
+document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>{
+  S.view=t.dataset.view; S.q=""; S.fStore=""; S.fCat=""; S.fPrio="";
+  render(); window.scrollTo({top:0,behavior:"smooth"});
+}));
 
-document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>{ S.view=t.dataset.view; render(); window.scrollTo({top:0,behavior:"smooth"}); }));
-
-/* ---- modals ---- */
-function open(id){ $(id).classList.add("open"); }
-function close(id){ $(id).classList.remove("open"); }
-document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>b.closest(".scrim").classList.remove("open")));
-document.querySelectorAll(".scrim").forEach(s=>s.addEventListener("click",e=>{ if(e.target===s) s.classList.remove("open"); }));
-document.addEventListener("keydown",e=>{ if(e.key==="Escape") document.querySelectorAll(".scrim.open").forEach(s=>s.classList.remove("open")); });
+/* ============================================================
+   10. Modals — focus set synchronously, so no keystroke is ever
+       lost and nothing else can steal the caret.
+   ============================================================ */
+let lastFocus=null;
+function openModal(sel,focusSel){
+  lastFocus=document.activeElement;
+  const s=$(sel);
+  s.classList.add("open");
+  const el = (focusSel && s.querySelector(focusSel)) || s.querySelector("input,select,textarea,button");
+  if(el) el.focus({preventScroll:true});      // same tick as the click — no race
+}
+function closeModal(sel){
+  $(sel).classList.remove("open");
+  if(lastFocus && lastFocus.isConnected) { try{ lastFocus.focus({preventScroll:true}); }catch(e){} }
+  lastFocus=null;
+}
+document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>closeModal("#"+b.closest(".scrim").id)));
+document.querySelectorAll(".scrim").forEach(s=>s.addEventListener("click",e=>{ if(e.target===s) closeModal("#"+s.id); }));
+document.addEventListener("keydown",e=>{
+  const open=document.querySelector(".scrim.open");
+  if(!open) return;
+  if(e.key==="Escape"){ closeModal("#"+open.id); return; }
+  if(e.key!=="Tab") return;
+  const f=[...open.querySelectorAll("input,select,textarea,button")].filter(n=>n.offsetParent!==null);
+  if(!f.length) return;
+  const first=f[0], last=f[f.length-1];
+  if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+  else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+});
 
 $("#authBtn").addEventListener("click",()=>{
   if(S.auth){ S.auth=false; LS.set("gh.auth",false); toast("Signed out — view only"); render(); }
-  else { $("#loginErr").classList.remove("show"); $("#luser").value=""; $("#lpass").value=""; open("#loginScrim"); setTimeout(()=>$("#luser").focus(),40); }
+  else {
+    $("#loginErr").classList.remove("show");
+    $("#luser").value=""; $("#lpass").value="";
+    openModal("#loginScrim","#luser");
+  }
 });
 $("#roSignin").addEventListener("click",()=>$("#authBtn").click());
 function tryLogin(){
   if($("#luser").value.trim().toLowerCase()===AUTH_USER && $("#lpass").value===AUTH_PASS){
-    S.auth=true; LS.set("gh.auth",true); close("#loginScrim"); toast("Signed in — you can edit now"); render();
+    S.auth=true; LS.set("gh.auth",true); closeModal("#loginScrim");
+    toast("Signed in — you can edit now"); render();
+    const n=$("#aItem"); if(n) n.focus();
   } else {
-    $("#loginErr").classList.add("show");
+    $("#loginErr").classList.add("show"); $("#lpass").select();
   }
 }
 $("#loginGo").addEventListener("click",tryLogin);
-$("#lpass").addEventListener("keydown",e=>{ if(e.key==="Enter") tryLogin(); });
-$("#luser").addEventListener("keydown",e=>{ if(e.key==="Enter") $("#lpass").focus(); });
+$("#luser").addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); $("#lpass").focus(); } });
+$("#lpass").addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); tryLogin(); } });
 
-$("#cfgBtn").addEventListener("click",()=>{ $("#cfgUrl").value=S.url; $("#cfgErr").classList.remove("show"); open("#cfgScrim"); });
+$("#cfgBtn").addEventListener("click",()=>{
+  $("#cfgUrl").value=S.url; $("#cfgErr").classList.remove("show");
+  openModal("#cfgScrim","#cfgUrl");
+});
 $("#cfgTest").addEventListener("click",async()=>{
-  const u=$("#cfgUrl").value.trim(); const err=$("#cfgErr");
-  if(!u){ err.textContent="Paste the /exec URL first."; err.classList.add("show"); return; }
-  err.classList.remove("show"); $("#cfgTest").textContent="Testing…"; $("#cfgTest").disabled=true;
+  const u=$("#cfgUrl").value.trim(), err=$("#cfgErr"), btn=$("#cfgTest");
+  if(!u){ err.style.color="var(--red)"; err.textContent="Paste the /exec URL first."; err.classList.add("show"); return; }
+  err.classList.remove("show"); btn.textContent="Testing…"; btn.disabled=true;
   try{
     const j=await apiGet(u);
     err.style.color="var(--accent-ink)";
     err.textContent="Connected. Found "+(j.groceries||[]).length+" grocery rows and "+(j.todos||[]).length+" to-dos.";
-    err.classList.add("show");
-  }catch(ex){
-    err.style.color="var(--red)"; err.textContent="Couldn't reach it: "+ex.message; err.classList.add("show");
-  }
-  $("#cfgTest").textContent="Test"; $("#cfgTest").disabled=false;
+  }catch(ex){ err.style.color="var(--red)"; err.textContent="Couldn't reach it: "+ex.message; }
+  err.classList.add("show"); btn.textContent="Test"; btn.disabled=false;
 });
 $("#cfgSave").addEventListener("click",()=>{
-  S.url=$("#cfgUrl").value.trim(); LS.set("gh.url",S.url); close("#cfgScrim");
-  if(S.url) refresh(); else { setSync("off","Local only"); render(); }
+  S.url=$("#cfgUrl").value.trim(); LS.set("gh.url",S.url); closeModal("#cfgScrim");
+  if(S.url) refresh(); else { setSync("off","Local only"); repaint(); }
 });
 $("#syncPill").addEventListener("click",()=>{ if(S.url) refresh(); else $("#cfgBtn").click(); });
 
-/* ---- edit modal ---- */
 function openEdit(kind,id){
   const row = kind==="g" ? S.groceries.find(x=>x.id===id) : S.todos.find(x=>x.id===id);
   if(!row) return;
   S.editing={kind,id};
   $("#editTitle").textContent = kind==="g" ? "Edit item" : "Edit task";
-  $("#editDesc").textContent  = kind==="g" ? "Change any detail, then save." : "Change the task, then save.";
   $("#editBody").innerHTML = kind==="g" ? `
     <div class="f"><label class="lbl" for="eItem">Item</label><input class="fld" id="eItem" value="${esc(row.item)}"></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
       <div class="f"><label class="lbl" for="eQty">Quantity</label><input class="fld" id="eQty" value="${esc(row.qty)}"></div>
       <div class="f"><label class="lbl" for="eUnit">Unit</label><select class="fld" id="eUnit">${unitOptions(row.unit)}</select></div>
     </div>
-    <div class="f"><label class="lbl" for="eStore">Store</label><select class="fld" id="eStore">${storeOptions(row.store,false)}</select></div>
-    <div class="f hide" id="eCustomWrap"><label class="lbl" for="eStoreCustom">Store name</label><input class="fld" id="eStoreCustom" placeholder="Trader Joe's, 99 Ranch…"></div>
+    <div class="f"><label class="lbl" for="eStore">Store</label><select class="fld" id="eStore">${storeOptions(row.store)}</select></div>
+    <div class="f" id="eCustomWrap" style="display:none"><label class="lbl" for="eStoreCustom">Store name</label><input class="fld" id="eStoreCustom" placeholder="Trader Joe's, 99 Ranch…"></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-      <div class="f"><label class="lbl" for="eCat">Category</label><select class="fld" id="eCat">${catOptions(row.category,false)}</select></div>
+      <div class="f"><label class="lbl" for="eCat">Category</label><select class="fld" id="eCat">${catOptions(row.category,"")}</select></div>
       <div class="f"><label class="lbl" for="ePrio">Priority</label><select class="fld" id="ePrio">${prioOptions(row.priority,false)}</select></div>
     </div>
-    <div class="f"><label class="lbl" for="eBought">Purchase date</label><input class="fld" id="eBought" type="date" value="${esc(row.boughtAt)}"><div class="hint">Set this to record when you last bought it.</div></div>
+    <div class="f"><label class="lbl" for="eBought">Purchase date</label><input class="fld" id="eBought" type="date" value="${esc(row.boughtAt)}"><div class="hint">Setting this moves the item to History.</div></div>
     <div class="f"><label class="lbl" for="eNotes">Notes</label><textarea class="fld" id="eNotes">${esc(row.notes)}</textarea></div>
   ` : `
     <div class="f"><label class="lbl" for="eTask">Task</label><input class="fld" id="eTask" value="${esc(row.task)}"></div>
@@ -1073,12 +1213,8 @@ function openEdit(kind,id){
     <div class="f"><label class="lbl" for="eNotes">Notes</label><textarea class="fld" id="eNotes">${esc(row.notes)}</textarea></div>
   `;
   const es=$("#eStore");
-  if(es){
-    const known=STORES.some(s=>s.name===row.store);
-    es.addEventListener("change",()=>$("#eCustomWrap").classList.toggle("hide", es.value!=="Other"));
-    if(!known){ /* custom store already listed as its own option */ }
-  }
-  open("#editScrim");
+  if(es) es.addEventListener("change",()=>{ $("#eCustomWrap").style.display = es.value==="Other" ? "" : "none"; });
+  openModal("#editScrim", kind==="g" ? "#eItem" : "#eTask");
 }
 $("#editSave").addEventListener("click",()=>{
   if(!S.editing) return;
@@ -1086,25 +1222,23 @@ $("#editSave").addEventListener("click",()=>{
   if(kind==="g"){
     const r=S.groceries.find(x=>x.id===id); if(!r) return;
     const before=Object.assign({},r);
-    let store=$("#eStore").value;
-    if(store==="Other"){ const c=$("#eStoreCustom").value.trim(); if(c) store=c; }
+    let st=$("#eStore").value;
+    if(st==="Other"){ const c=($("#eStoreCustom").value||"").trim(); if(c) st=c; }
     r.item=$("#eItem").value.trim(); r.qty=$("#eQty").value.trim(); r.unit=$("#eUnit").value;
-    r.store=store; r.category=$("#eCat").value; r.priority=$("#ePrio").value;
+    r.store=st; r.category=$("#eCat").value; r.priority=$("#ePrio").value;
     r.boughtAt=$("#eBought").value; r.notes=$("#eNotes").value.trim();
-    if(r.boughtAt && r.status==="pending") r.status="bought";
-    if(!r.boughtAt && r.status==="bought") r.status="pending";
-    close("#editScrim");
+    r.status = r.boughtAt ? "bought" : "pending";
+    closeModal("#editScrim");
     push("upsertGrocery",r,()=>Object.assign(r,before));
   } else {
     const r=S.todos.find(x=>x.id===id); if(!r) return;
     const before=Object.assign({},r);
     r.task=$("#eTask").value.trim(); r.priority=$("#ePrio").value;
     r.due=$("#eDue").value; r.notes=$("#eNotes").value.trim();
-    close("#editScrim");
+    closeModal("#editScrim");
     push("upsertTodo",r,()=>Object.assign(r,before));
   }
-  S.editing=null;
-  toast("Saved");
+  S.editing=null; toast("Saved");
 });
 
 /* ---- theme ---- */
@@ -1116,10 +1250,13 @@ function applyTheme(t){
 applyTheme(LS.get("gh.theme","")||null);
 $("#themeBtn").addEventListener("click",()=>{
   const cur=document.documentElement.getAttribute("data-theme");
-  const next = cur==="dark" ? "light" : cur==="light" ? "" : "dark";
-  applyTheme(next||null); render();
+  applyTheme((cur==="dark"?"light":cur==="light"?"":"dark")||null);
+  repaint();
 });
 
+/* ============================================================
+   11. Quote panel
+   ============================================================ */
 const QUOTES = [
   {t:"It is not the critic who counts; not the man who points out how the strong man stumbles. The credit belongs to the man who is actually in the arena, whose face is marred by dust and sweat and blood; who errs, who comes short again and again; who at the best knows in the end the triumph of high achievement.",a:"Theodore Roosevelt",s:"Citizenship in a Republic, 1910"},
   {t:"Everything can be taken from a man but one thing: the last of the human freedoms — to choose one's attitude in any given set of circumstances, to choose one's own way.",a:"Viktor Frankl",s:"Man's Search for Meaning"},
@@ -1173,9 +1310,6 @@ const QUOTES = [
   {t:"Little by little, one travels far.",a:"Proverb",s:""}
 ];
 
-/* ---- quote panel: local pool paints instantly; the ↻ button tries the
-   internet first (via the Apps Script backend, which has no CORS limits)
-   and quietly falls back to the pool if that isn't available. ---- */
 let qBusy=false;
 function pickLocal(){
   const last=LS.get("gh.lastQ",-1);
@@ -1203,7 +1337,7 @@ async function liveQuote(){
     if(!r.ok) return null;
     const j=await r.json();
     if(j && j.ok && j.quote && j.quote.t) return {t:j.quote.t,a:j.quote.a||"Unknown",s:"from the web"};
-  }catch(e){ /* offline, blocked, or backend not redeployed — fall back */ }
+  }catch(e){ /* offline or backend not redeployed — fall back */ }
   finally{ clearTimeout(timer); }
   return null;
 }
@@ -1213,26 +1347,26 @@ async function newQuote(tryLive){
   const btn=$("#qRefresh");
   btn.classList.add("spin");
   setTimeout(()=>btn.classList.remove("spin"),600);
-  // Always paint from the built-in pool first, so the button never feels
-  // slow — even on a bad connection or an un-redeployed backend.
-  paintQuote(pickLocal());
+  paintQuote(pickLocal());     // always instant
   qBusy=false;
   if(!tryLive) return;
-  const live=await liveQuote();     // may take a second; swaps in if it lands
+  const live=await liveQuote();
   if(live) paintQuote(live);
 }
 $("#qRefresh").addEventListener("click",()=>newQuote(true));
 
 /* ============================================================
-   7. Boot
+   12. Boot
    ============================================================ */
 (function boot(){
   newQuote(false);
   const p=new URLSearchParams(location.search);
   if(p.get("url")){ S.url=p.get("url"); LS.set("gh.url",S.url); }
   render();
-  if(S.url){ refresh(true); setInterval(()=>{ if(!document.hidden) refresh(true); }, 90000); }
-  else { setSync("off","Local only"); setTimeout(()=>toast("Open ⚙ to connect your Google Sheet"),700); }
+  if(S.url){
+    refresh(true);
+    setInterval(()=>{ if(!document.hidden && !modalOpen()) refresh(true); }, 90000);
+  } else setSync("off","Local only");
 })();
 
 })();
